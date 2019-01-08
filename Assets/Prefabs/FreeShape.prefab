@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4049497714158072}
   - component: {fileID: 212859593689018220}
   - component: {fileID: 50955757682045406}
-  - component: {fileID: 58858176603518308}
   - component: {fileID: 114689592243875498}
+  - component: {fileID: 61185205937463838}
   m_Layer: 0
   m_Name: FreeShape
-  m_TagString: Untagged
+  m_TagString: Enemies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084814775127798}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.57, y: -2.55, z: 0}
+  m_LocalPosition: {x: -7.91, y: -2.48, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,21 +63,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &58858176603518308
-CircleCollider2D:
+--- !u!61 &61185205937463838
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084814775127798}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3a4c920f302461d46bed0de8b9875fe2, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.32
+  m_Size: {x: 0.64, y: 0.64}
+  m_EdgeRadius: 0
 --- !u!114 &114689592243875498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -92,6 +102,20 @@ MonoBehaviour:
   _speed: 3
   _shapeType: 0
   _startDirection: {x: 1, y: 1}
+  _friendlySprites:
+  - Sprite: {fileID: 21300000, guid: c863f2a76f370c6429f1b0b09c9306c1, type: 3}
+    ShapeType: 0
+  - Sprite: {fileID: 21300000, guid: 8d83be34205efda4c916642c29cbbebc, type: 3}
+    ShapeType: 2
+  - Sprite: {fileID: 21300000, guid: e1d2b690546490146897b6c4b4447eb9, type: 3}
+    ShapeType: 1
+  _enemySprites:
+  - Sprite: {fileID: 21300000, guid: 78725f80c3c9cf84baaa0e374aa6d08d, type: 3}
+    ShapeType: 0
+  - Sprite: {fileID: 21300000, guid: 6e8ad49edba73c14baeeb62ed8a4eec6, type: 3}
+    ShapeType: 1
+  - Sprite: {fileID: 21300000, guid: b590ece889326e146a56a0f5073389fb, type: 3}
+    ShapeType: 2
 --- !u!212 &212859593689018220
 SpriteRenderer:
   m_ObjectHideFlags: 1
