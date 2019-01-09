@@ -1,4 +1,5 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
+using AgistForms.Assets.Scripts.Game;
 using AgistForms.Assets.Scripts.Structs;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,7 +65,19 @@ namespace Assets.Scripts.Game
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            var other = collision.collider.gameObject.GetComponent<Player>();
 
+            if (other != null)
+            {
+                if(other.ShapeType != _shapeType)
+                {
+                    var oshType = other.ShapeType;
+                    other.ShapeType = _shapeType;
+                    _shapeType = oshType;
+
+                    _spriteRenderer.sprite = _friendlySpritesCache[_shapeType];
+                }
+            }
         }
     }
 }
