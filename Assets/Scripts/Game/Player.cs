@@ -14,11 +14,22 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private ShapeSprite[] _friendlySprites;
 
+        [SerializeField]
+        private float _speed;
+
         private Dictionary<ShapeType, Sprite> _spriteCache;
+        private Dictionary<Commands, Vector2> _commandToDirection;
         private SpriteRenderer _spriteRenderer;
 
         private void Start()
         {
+            _commandToDirection = new Dictionary<Commands, Vector2>
+            {
+                {Commands.Up, Vector2.up },
+                {Commands.Down, Vector2.down },
+                {Commands.Left, Vector2.left },
+                {Commands.Right, Vector2.right }
+};
             _spriteRenderer = GetComponent<SpriteRenderer>();
             PrepareSpriteCaches();
         }
@@ -45,6 +56,12 @@ namespace AgistForms.Assets.Scripts.Game
                 _shapeType = value;
                 _spriteRenderer.sprite = _spriteCache[value];
             }
+        }
+
+        internal void GetCommand(Commands command)
+        {
+            var spd = _speed * Time.deltaTime;
+            transform.Translate(_commandToDirection[command] * spd);
         }
     }
 }
