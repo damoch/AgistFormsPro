@@ -18,17 +18,17 @@ namespace AgistForms.Assets.Scripts.Game
         private float _speed;
 
         private Dictionary<ShapeType, Sprite> _spriteCache;
-        private Dictionary<Commands, Vector2> _commandToDirection;
+        private Dictionary<Direction, Vector2> _commandToDirection;
         private SpriteRenderer _spriteRenderer;
 
         private void Start()
         {
-            _commandToDirection = new Dictionary<Commands, Vector2>
+            _commandToDirection = new Dictionary<Direction, Vector2>
             {
-                {Commands.Up, Vector2.up },
-                {Commands.Down, Vector2.down },
-                {Commands.Left, Vector2.left },
-                {Commands.Right, Vector2.right }
+                {Direction.Up, Vector2.up },
+                {Direction.Down, Vector2.down },
+                {Direction.Left, Vector2.left },
+                {Direction.Right, Vector2.right }
 };
             _spriteRenderer = GetComponent<SpriteRenderer>();
             PrepareSpriteCaches();
@@ -58,7 +58,7 @@ namespace AgistForms.Assets.Scripts.Game
             }
         }
 
-        internal void GetCommand(Commands command)
+        internal void GetCommand(Direction command)
         {
             var spd = _speed * Time.deltaTime;
             transform.Translate(_commandToDirection[command] * spd);

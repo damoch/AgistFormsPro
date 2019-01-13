@@ -20,18 +20,18 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private KeyCode _rightKey;        
 
-        private Dictionary<KeyCode, Commands> _keyCodesToCommands;
+        private Dictionary<KeyCode, Direction> _keyCodesToCommands;
         private Player _player;
 
         private void Start()
         {
             _player = GetComponent<Player>();
-            _keyCodesToCommands = new Dictionary<KeyCode, Commands>
+            _keyCodesToCommands = new Dictionary<KeyCode, Direction>
             {
-                { _upKey, Commands.Up },
-                { _downKey, Commands.Down },
-                { _leftKey, Commands.Left },
-                { _rightKey, Commands.Right }
+                { _upKey, Direction.Up },
+                { _downKey, Direction.Down },
+                { _leftKey, Direction.Left },
+                { _rightKey, Direction.Right }
             };
         }
 

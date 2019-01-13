@@ -170,6 +170,11 @@ Prefab:
       propertyPath: m_TagString
       value: Enemies
       objectReference: {fileID: 0}
+    - target: {fileID: 114689592243875498, guid: 17a54d3a1d58fce46a310ca155abe155,
+        type: 2}
+      propertyPath: _startDirection
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17a54d3a1d58fce46a310ca155abe155, type: 2}
   m_IsPrefabParent: 0
@@ -351,11 +356,16 @@ Prefab:
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_BodyType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
+        type: 2}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -427,11 +437,16 @@ Prefab:
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_BodyType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
+        type: 2}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -476,44 +491,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 114531349488406238, guid: 892ffe6ac7cbf914798c07cb3622c974,
-        type: 2}
-      propertyPath: _speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 61262680461412804, guid: 892ffe6ac7cbf914798c07cb3622c974,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 50499746498483336, guid: 892ffe6ac7cbf914798c07cb3622c974,
         type: 2}
-      propertyPath: m_UseFullKinematicContacts
-      value: 1
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 892ffe6ac7cbf914798c07cb3622c974, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &984508006 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1279629544246964, guid: 892ffe6ac7cbf914798c07cb3622c974,
+--- !u!114 &984508008 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114531349488406238, guid: 892ffe6ac7cbf914798c07cb3622c974,
     type: 2}
   m_PrefabInternal: {fileID: 984508005}
---- !u!114 &984508007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 984508006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf606efb12c6e3b46b150708846453ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _upKey: 119
-  _downKey: 115
-  _leftKey: 97
-  _rightKey: 100
+  m_Script: {fileID: 11500000, guid: 7dfc2481f47fd954ca949f2361d497b4, type: 3}
 --- !u!114 &1351402843 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114689592243875498, guid: 17a54d3a1d58fce46a310ca155abe155,
@@ -606,6 +597,35 @@ MonoBehaviour:
   - {fileID: 1798557084}
   - {fileID: 1351402843}
   - {fileID: 1993491791}
+  _gameplayRulesList:
+  - PlayerShape: 0
+    FreeShape: 0
+    CollisionResult: 0
+  - PlayerShape: 2
+    FreeShape: 2
+    CollisionResult: 0
+  - PlayerShape: 1
+    FreeShape: 1
+    CollisionResult: 0
+  - PlayerShape: 0
+    FreeShape: 1
+    CollisionResult: 2
+  - PlayerShape: 0
+    FreeShape: 2
+    CollisionResult: 1
+  - PlayerShape: 2
+    FreeShape: 1
+    CollisionResult: 1
+  - PlayerShape: 2
+    FreeShape: 0
+    CollisionResult: 2
+  - PlayerShape: 1
+    FreeShape: 0
+    CollisionResult: 1
+  - PlayerShape: 1
+    FreeShape: 2
+    CollisionResult: 2
+  _player: {fileID: 984508008}
 --- !u!4 &1686779199
 Transform:
   m_ObjectHideFlags: 0
@@ -671,11 +691,16 @@ Prefab:
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_BodyType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
+        type: 2}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -753,11 +778,16 @@ Prefab:
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_BodyType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
         type: 2}
       propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50177660812216674, guid: 67b3d1833ab884d44a955eccbf612604,
+        type: 2}
+      propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
