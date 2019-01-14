@@ -626,6 +626,8 @@ MonoBehaviour:
     FreeShape: 2
     CollisionResult: 2
   _player: {fileID: 984508008}
+  _gameState: 0
+  _restartKeyCode: 114
 --- !u!4 &1686779199
 Transform:
   m_ObjectHideFlags: 0

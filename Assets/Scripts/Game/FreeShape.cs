@@ -107,6 +107,7 @@ namespace Assets.Scripts.Game
                         LevelController.UpdateAllShapes(other.ShapeType);
                         break;
                     case CollisionResult.DestroyPlayer:
+                        LevelController.SetGameOver();
                         break;
                 }
             }

@@ -18,6 +18,12 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private Player _player;
 
+        [SerializeField]
+        private GameState _gameState;
+
+        [SerializeField]
+        private KeyCode _restartKeyCode;
+
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
 
         private void Start()
@@ -25,6 +31,24 @@ namespace AgistForms.Assets.Scripts.Game
             GenerateGameplayRules();
             InjectControllerInShapes();
             UpdateAllShapes(_player.ShapeType);
+            StartNewGame();
+        }
+
+        private void Update()
+        {
+            if(_gameState == GameState.GameOver)
+            {
+                if (Input.GetKey(_restartKeyCode))
+                {
+                    StartNewGame();
+                }
+            }
+        }
+
+        private void StartNewGame()
+        {
+            _gameState = GameState.GamePlaying;
+            _player.gameObject.SetActive(true);
         }
 
         private void GenerateGameplayRules()
@@ -56,5 +80,12 @@ namespace AgistForms.Assets.Scripts.Game
                 shape.CollisionResult = _gameplayRules[playerShapeType][shape.ShapeType];
             }
         }
+
+        public void SetGameOver()
+        {
+            _gameState = GameState.GameOver;
+            _player.gameObject.SetActive(false);
+        }
+
     }
 }
