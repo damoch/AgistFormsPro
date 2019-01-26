@@ -2,6 +2,6 @@
 {
     public enum GameState
     {
-        GamePlaying, GameOver
+        GamePlaying, GameOver, LevelCompleted
     }
 }

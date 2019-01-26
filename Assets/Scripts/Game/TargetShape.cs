@@ -9,6 +9,13 @@ namespace AgistForms.Assets.Scripts.Game
     public class TargetShape : MonoBehaviour
     {
         public LevelController LevelController { get; set; }
+        public bool SuccesfullCollison
+        {
+            get
+            {
+                return _succesfullCollison;
+            }
+        }
 
         [SerializeField]
         private ShapeSprite[] _wrongShapes;
@@ -19,6 +26,9 @@ namespace AgistForms.Assets.Scripts.Game
 
         [SerializeField]
         private ShapeType _targetType;
+
+        [SerializeField]
+        private bool _succesfullCollison;
 
         private Dictionary<ShapeType, Sprite> _rightShapesCache;
         private Dictionary<ShapeType, Sprite> _wrongShapesCache;
@@ -58,7 +68,14 @@ namespace AgistForms.Assets.Scripts.Game
 
             if (player)
             {
-                SetSprite(player.ShapeType == _targetType);
+                var succesfull = player.ShapeType == _targetType;
+                SetSprite(succesfull);
+                _succesfullCollison = succesfull;
+                if (succesfull)
+                {
+                    LevelController.CheckTargetSprites();
+                }
+   
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
 using Assets.Scripts.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace AgistForms.Assets.Scripts.Game
     {
         [SerializeField]
         private List<FreeShape> _shapes;
+
+        [SerializeField]
+        private List<TargetShape> _targetShapes;
 
         [SerializeField]
         private List<GameplayRule> _gameplayRulesList;
@@ -25,13 +29,37 @@ namespace AgistForms.Assets.Scripts.Game
         private KeyCode _restartKeyCode;
 
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
+        private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
 
         private void Start()
         {
             GenerateGameplayRules();
             InjectControllerInShapes();
             UpdateAllShapes(_player.ShapeType);
+
+            SaveLevelState();
             StartNewGame();
+        }
+
+        private void SaveLevelState()
+        {
+            _startLevelState = new Dictionary<MonoBehaviour, ObjectSaveState>();
+
+            var playerState = new ObjectSaveState
+            {
+                StartingPosition = _player.transform.position,
+                StartingShapeType = _player.ShapeType
+            };
+            _startLevelState.Add(_player, playerState);
+
+            foreach (var shape in _shapes)
+            {
+                _startLevelState.Add(shape, new ObjectSaveState
+                {
+                    StartingPosition = shape.transform.position,
+                    StartingShapeType = shape.ShapeType
+                });
+            }
         }
 
         private void Update()
@@ -49,6 +77,27 @@ namespace AgistForms.Assets.Scripts.Game
         {
             _gameState = GameState.GamePlaying;
             _player.gameObject.SetActive(true);
+
+            LoadSavedState();
+        }
+
+        private void LoadSavedState()
+        {
+            var playerState = _startLevelState[_player];
+            _player.transform.position = playerState.StartingPosition;
+            _player.ShapeType = playerState.StartingShapeType;
+
+            foreach (var shape in _shapes)
+            {
+                var shapeState = _startLevelState[shape];
+
+                shape.transform.position = shapeState.StartingPosition;
+                shape.ShapeType = shapeState.StartingShapeType;
+
+                shape.AddForces();
+            }
+
+            UpdateAllShapes(_player.ShapeType);
         }
 
         private void GenerateGameplayRules()
@@ -71,6 +120,11 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 shape.LevelController = this;
             }
+
+            foreach (var shape in _targetShapes)
+            {
+                shape.LevelController = this;
+            }
         }
 
         public void UpdateAllShapes(ShapeType playerShapeType)
@@ -85,6 +139,27 @@ namespace AgistForms.Assets.Scripts.Game
         {
             _gameState = GameState.GameOver;
             _player.gameObject.SetActive(false);
+        }
+
+        public void CheckTargetSprites()
+        {
+            foreach(var shape in _targetShapes)
+            {
+                if (!shape.SuccesfullCollison)
+                {
+                    return;
+                }
+            }
+            SetLevelCompleted();
+        }
+
+        private void SetLevelCompleted()
+        {
+            _gameState = GameState.LevelCompleted;
+            foreach (var shape in _shapes)
+            {
+                shape.gameObject.SetActive(false);
+            }
         }
 
     }
