@@ -1,7 +1,6 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
 using Assets.Scripts.Game;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,6 +26,9 @@ namespace AgistForms.Assets.Scripts.Game
 
         [SerializeField]
         private KeyCode _restartKeyCode;
+
+        [SerializeField]
+        private List<BlockerShape> _blockerShapes;
 
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
@@ -95,6 +97,11 @@ namespace AgistForms.Assets.Scripts.Game
                 shape.ShapeType = shapeState.StartingShapeType;
 
                 shape.AddForces();
+            }
+
+            foreach(var shape in _blockerShapes)
+            {
+                shape.gameObject.SetActive(true);
             }
 
             UpdateAllShapes(_player.ShapeType);

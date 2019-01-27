@@ -1,6 +1,6 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace AgistForms.Assets.Scripts.Game
@@ -30,36 +30,27 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private bool _succesfullCollison;
 
-        private Dictionary<ShapeType, Sprite> _rightShapesCache;
-        private Dictionary<ShapeType, Sprite> _wrongShapesCache;
+
+        private Sprite _rightSprite;
+        private Sprite _wrongSprite;
         private SpriteRenderer _spriteRenderer;
 
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            PrepareSpriteCaches();
+            PrepareSprites();
             SetSprite(false);
         }
 
         private void SetSprite(bool isCorrect)
         {
-            _spriteRenderer.sprite = isCorrect ? _rightShapesCache[_targetType] : _wrongShapesCache[_targetType];
+            _spriteRenderer.sprite = isCorrect ? _rightSprite : _wrongSprite;
         }
 
-        private void PrepareSpriteCaches()
+        private void PrepareSprites()
         {
-            _rightShapesCache = new Dictionary<ShapeType, Sprite>();
-            _wrongShapesCache = new Dictionary<ShapeType, Sprite>();
-
-            foreach (var shape in _wrongShapes)
-            {
-                _wrongShapesCache.Add(shape.ShapeType, shape.Sprite);
-            }
-
-            foreach (var shape in _rightShapes)
-            {
-                _rightShapesCache.Add(shape.ShapeType, shape.Sprite);
-            }
+            _rightSprite = _rightShapes.First(x => x.ShapeType == _targetType).Sprite;
+            _wrongSprite = _wrongShapes.First(x => x.ShapeType == _targetType).Sprite;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
