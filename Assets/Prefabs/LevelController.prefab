@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1062906422925234}
+  m_IsPrefabParent: 1
+--- !u!1 &1062906422925234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4911517372363992}
+  - component: {fileID: 114436152524581454}
+  - component: {fileID: 114294503369449366}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4911517372363992
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062906422925234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114294503369449366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062906422925234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc591eba11152cc43aaaf8e74ac954e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shapes:
+  - {fileID: 0}
+  - {fileID: 0}
+  _targetShapes:
+  - {fileID: 0}
+  _player: {fileID: 0}
+  _blockerShapes:
+  - {fileID: 0}
+  - {fileID: 0}
+  _borders:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &114436152524581454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062906422925234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b436726b7b9918c4da06fc7734c7b5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameplayRulesList:
+  - PlayerShape: 0
+    FreeShape: 0
+    CollisionResult: 0
+  - PlayerShape: 2
+    FreeShape: 2
+    CollisionResult: 0
+  - PlayerShape: 1
+    FreeShape: 1
+    CollisionResult: 0
+  - PlayerShape: 0
+    FreeShape: 1
+    CollisionResult: 2
+  - PlayerShape: 0
+    FreeShape: 2
+    CollisionResult: 1
+  - PlayerShape: 2
+    FreeShape: 1
+    CollisionResult: 1
+  - PlayerShape: 2
+    FreeShape: 0
+    CollisionResult: 2
+  - PlayerShape: 1
+    FreeShape: 0
+    CollisionResult: 1
+  - PlayerShape: 1
+    FreeShape: 2
+    CollisionResult: 2
+  _gameState: 0
+  _restartKeyCode: 114

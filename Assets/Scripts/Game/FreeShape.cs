@@ -1,10 +1,9 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
-using AgistForms.Assets.Scripts.Game;
 using AgistForms.Assets.Scripts.Structs;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Game
+namespace AgistForms.Assets.Scripts.Game
 {
     public class FreeShape : MonoBehaviour
     {
