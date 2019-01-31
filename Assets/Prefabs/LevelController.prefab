@@ -52,20 +52,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc591eba11152cc43aaaf8e74ac954e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapes:
-  - {fileID: 0}
-  - {fileID: 0}
+  _shapes: []
   _targetShapes:
   - {fileID: 0}
   _player: {fileID: 0}
-  _blockerShapes:
-  - {fileID: 0}
-  - {fileID: 0}
+  _blockerShapes: []
   _borders:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _nextLevelName: level2
 --- !u!114 &114436152524581454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,3 +104,4 @@ MonoBehaviour:
     CollisionResult: 2
   _gameState: 0
   _restartKeyCode: 114
+  _confirmNextLevelKeyCode: 32

@@ -21,6 +21,9 @@ namespace AgistForms.Assets.Scripts.Data
         [SerializeField]
         private List<Border> _borders;
 
+        [SerializeField]
+        private string _nextLevelName;
+
         public List<FreeShape> Shapes
         {
             get
@@ -50,6 +53,14 @@ namespace AgistForms.Assets.Scripts.Data
             get
             {
                 return _blockerShapes;
+            }
+        }
+
+        public string NextLevelName
+        {
+            get
+            {
+                return _nextLevelName;
             }
         }
     }

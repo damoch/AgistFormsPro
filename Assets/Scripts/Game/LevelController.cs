@@ -1,26 +1,20 @@
 ﻿using AgistForms.Assets.Scripts.Data;
 using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AgistForms.Assets.Scripts.Game
 {
     [RequireComponent(typeof(LevelData))]
     public class LevelController : MonoBehaviour
     {
-        //[SerializeField]
-        //private List<FreeShape> _shapes;
-
-        //[SerializeField]
-        //private List<TargetShape> _targetShapes;
 
         [SerializeField]
         private List<GameplayRule> _gameplayRulesList;
-
-        //[SerializeField]
-        //private Player _player;
 
         [SerializeField]
         private GameState _gameState;
@@ -28,8 +22,8 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private KeyCode _restartKeyCode;
 
-        //[SerializeField]
-        //private List<BlockerShape> _blockerShapes;
+        [SerializeField]
+        private KeyCode _confirmNextLevelKeyCode;
 
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
@@ -74,12 +68,33 @@ namespace AgistForms.Assets.Scripts.Game
                 if (Input.GetKey(_restartKeyCode))
                 {
                     StartNewGame();
+                    return;
                 }
+            }
+            if(_gameState == GameState.LevelCompleted)
+            {
+                if (Input.GetKey(_confirmNextLevelKeyCode))
+                {
+                    GoToNextLevel();
+                    return;
+                }
+            }
+        }
+
+        private void GoToNextLevel()
+        {           
+            if (!string.IsNullOrEmpty(_levelData.NextLevelName))
+            {
+                SceneManager.LoadScene(_levelData.NextLevelName);
             }
         }
 
         private void StartNewGame()
         {
+            if(_gameState == GameState.GamePlaying)
+            {
+                return;
+            }
             _gameState = GameState.GamePlaying;
             _levelData.Player.gameObject.SetActive(true);
 

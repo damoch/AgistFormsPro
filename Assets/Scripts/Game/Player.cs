@@ -32,6 +32,7 @@ namespace AgistForms.Assets.Scripts.Game
 };
             _spriteRenderer = GetComponent<SpriteRenderer>();
             PrepareSpriteCaches();
+            _spriteRenderer.sprite = _spriteCache[_shapeType];
         }
 
         private void PrepareSpriteCaches()
