@@ -15,11 +15,13 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 return _succesfullCollison;
             }
+
+            set
+            {
+                _succesfullCollison = value;
+                SetSprite(value);
+            }
         }
-
-        [SerializeField]
-        private ShapeSprite[] _wrongShapes;
-
 
         [SerializeField]
         private ShapeSprite[] _rightShapes;
@@ -30,9 +32,13 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private bool _succesfullCollison;
 
+        [SerializeField]
+        private Color _correctColor;
+
+        [SerializeField]
+        private Color _wrongColor;
 
         private Sprite _rightSprite;
-        private Sprite _wrongSprite;
         private SpriteRenderer _spriteRenderer;
 
         private void Start()
@@ -44,13 +50,12 @@ namespace AgistForms.Assets.Scripts.Game
 
         private void SetSprite(bool isCorrect)
         {
-            _spriteRenderer.sprite = isCorrect ? _rightSprite : _wrongSprite;
+            _spriteRenderer.color = isCorrect ? _correctColor : _wrongColor;
         }
 
         private void PrepareSprites()
         {
-            _rightSprite = _rightShapes.First(x => x.ShapeType == _targetType).Sprite;
-            _wrongSprite = _wrongShapes.First(x => x.ShapeType == _targetType).Sprite;
+            _spriteRenderer.sprite = _rightShapes.First(x => x.ShapeType == _targetType).Sprite;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

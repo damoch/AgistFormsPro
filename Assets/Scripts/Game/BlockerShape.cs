@@ -19,7 +19,6 @@ namespace AgistForms.Assets.Scripts.Game
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             SetSprite();
-            
         }
 
         private void SetSprite()

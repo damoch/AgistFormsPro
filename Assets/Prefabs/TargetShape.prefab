@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1839134039273840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 3, z: 0}
+  m_LocalPosition: {x: 7.4366302, y: -2.6044738, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,21 +89,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b202cc1f4be256c43bc1012a557572c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wrongShapes:
-  - Sprite: {fileID: 21300000, guid: b12e02f56bc948b4d96fc8ba8fc8c004, type: 3}
-    ShapeType: 0
-  - Sprite: {fileID: 21300000, guid: 7de029d1e5791cf49824119e23ef0686, type: 3}
-    ShapeType: 1
-  - Sprite: {fileID: 21300000, guid: 0df1b55395d72384abb922d4ad878a88, type: 3}
-    ShapeType: 2
   _rightShapes:
-  - Sprite: {fileID: 21300000, guid: 2d3ff24c0fe13bd468b3582736413280, type: 3}
+  - Sprite: {fileID: 21300000, guid: 1116a33bc65a56e43b71339b99f858c6, type: 3}
     ShapeType: 0
-  - Sprite: {fileID: 21300000, guid: cef694d2455268445bfc723977d78ecb, type: 3}
+  - Sprite: {fileID: 21300000, guid: b0cc152226d1abb4fab189dfff604a31, type: 3}
     ShapeType: 1
-  - Sprite: {fileID: 21300000, guid: 0e2f47f0d78c84c4391cbd36994fcfa7, type: 3}
+  - Sprite: {fileID: 21300000, guid: 0448023bd7909fe49a6a9779eda19bc1, type: 3}
     ShapeType: 2
   _targetType: 0
+  _succesfullCollison: 0
+  _correctColor: {r: 0.034482718, g: 1, b: 0, a: 1}
+  _wrongColor: {r: 1, g: 0.9724138, b: 0, a: 1}
 --- !u!212 &212663521625302812
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -138,7 +134,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b12e02f56bc948b4d96fc8ba8fc8c004, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1116a33bc65a56e43b71339b99f858c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -20,12 +20,14 @@ namespace AgistForms.Assets.Scripts.Game
         private ShapeSprite[] _friendlySprites;
 
         [SerializeField]
-        private ShapeSprite[] _enemySprites;
+        private Color _friendlyColor;
+
+        [SerializeField]
+        private Color _enemyColor;
 
         private Rigidbody2D _rigidbody2D;
         private SpriteRenderer _spriteRenderer;
         private Dictionary<ShapeType, Sprite> _friendlySpritesCache;
-        private Dictionary<ShapeType, Sprite> _enemySpritesCache;
         private Dictionary<Direction, Vector2> _directionToVector = new Dictionary<Direction, Vector2>
         {
             { Direction.Up, Vector2.up },
@@ -47,7 +49,8 @@ namespace AgistForms.Assets.Scripts.Game
             set
             {
                 _collisionResult = value;
-                _spriteRenderer.sprite = _collisionResult == CollisionResult.DestroyPlayer ? _enemySpritesCache[ShapeType] : _friendlySpritesCache[ShapeType];
+                _spriteRenderer.sprite = _friendlySpritesCache[ShapeType];
+                _spriteRenderer.color = _collisionResult == CollisionResult.DestroyPlayer ? _enemyColor : _friendlyColor;
 
             }
         }
@@ -65,15 +68,10 @@ namespace AgistForms.Assets.Scripts.Game
         private void PrepareSpriteCaches()
         {
             _friendlySpritesCache = new Dictionary<ShapeType, Sprite>();
-            _enemySpritesCache = new Dictionary<ShapeType, Sprite>();
 
             foreach (var item in _friendlySprites)
             {
                 _friendlySpritesCache.Add(item.ShapeType, item.Sprite);
-            }
-            foreach (var item in _enemySprites)
-            {
-                _enemySpritesCache.Add(item.ShapeType, item.Sprite);
             }
         }
 

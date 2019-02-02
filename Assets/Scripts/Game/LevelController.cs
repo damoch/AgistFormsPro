@@ -122,6 +122,11 @@ namespace AgistForms.Assets.Scripts.Game
                 shape.gameObject.SetActive(true);
             }
 
+            foreach (var item in _levelData.TargetShapes)
+            {
+                item.SuccesfullCollison = false;
+            }
+
             UpdateAllShapes(_levelData.Player.ShapeType);
         }
 
