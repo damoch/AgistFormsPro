@@ -1,7 +1,7 @@
 ﻿using AgistForms.Assets.Scripts.Data;
 using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
-using System;
+using AgistForms.Assets.Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,10 +9,9 @@ using UnityEngine.SceneManagement;
 
 namespace AgistForms.Assets.Scripts.Game
 {
-    [RequireComponent(typeof(LevelData))]
+    [RequireComponent(typeof(LevelData), typeof(UIController))]
     public class LevelController : MonoBehaviour
     {
-
         [SerializeField]
         private List<GameplayRule> _gameplayRulesList;
 
@@ -28,9 +27,13 @@ namespace AgistForms.Assets.Scripts.Game
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
         private LevelData _levelData;
+        private UIController _uiController;
+        private float _levelTime;
+        private int _shapeShiftsCount;
 
         private void Start()
         {
+            _uiController = GetComponent<UIController>();
             _levelData = GetComponent<LevelData>();
             GenerateGameplayRules();
             InjectControllerInShapes();
@@ -63,22 +66,26 @@ namespace AgistForms.Assets.Scripts.Game
 
         private void Update()
         {
-            if(_gameState == GameState.GameOver)
+            switch (_gameState)
             {
-                if (Input.GetKey(_restartKeyCode))
-                {
-                    StartNewGame();
-                    return;
-                }
+                case GameState.GamePlaying:
+                    _levelTime += Time.deltaTime;
+                    _uiController.TimeText = _levelTime.ToString(_uiController.TimeDisplayFormat);
+                    break;
+                case GameState.GameOver:
+                    if (Input.GetKey(_restartKeyCode))
+                    {
+                        StartNewGame();
+                    }
+                    break;
+                case GameState.LevelCompleted:
+                    if (Input.GetKey(_confirmNextLevelKeyCode))
+                    {
+                        GoToNextLevel();
+                    }
+                    break;
             }
-            if(_gameState == GameState.LevelCompleted)
-            {
-                if (Input.GetKey(_confirmNextLevelKeyCode))
-                {
-                    GoToNextLevel();
-                    return;
-                }
-            }
+
         }
 
         private void GoToNextLevel()
@@ -97,7 +104,8 @@ namespace AgistForms.Assets.Scripts.Game
             }
             _gameState = GameState.GamePlaying;
             _levelData.Player.gameObject.SetActive(true);
-
+            _levelTime = 0;
+            _shapeShiftsCount = 0;
             LoadSavedState();
         }
 
@@ -157,7 +165,7 @@ namespace AgistForms.Assets.Scripts.Game
             }
         }
 
-        public void UpdateAllShapes(ShapeType playerShapeType)
+        private void UpdateAllShapes(ShapeType playerShapeType)
         {
             foreach(var shape in _levelData.Shapes)
             {
@@ -190,6 +198,13 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 shape.gameObject.SetActive(false);
             }
+        }
+
+        public void ShapeShift(ShapeType playerShapeType)
+        {
+            _shapeShiftsCount++;
+            _uiController.ShapeShiftsText = _shapeShiftsCount.ToString();
+            UpdateAllShapes(playerShapeType);
         }
 
     }

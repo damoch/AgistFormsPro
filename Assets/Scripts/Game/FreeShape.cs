@@ -100,7 +100,7 @@ namespace AgistForms.Assets.Scripts.Game
                         other.ShapeType = _shapeType;
                         _shapeType = oshType;
                         _spriteRenderer.sprite = _friendlySpritesCache[_shapeType];
-                        LevelController.UpdateAllShapes(other.ShapeType);
+                        LevelController.ShapeShift(other.ShapeType);
                         break;
                     case CollisionResult.DestroyPlayer:
                         LevelController.SetGameOver();
