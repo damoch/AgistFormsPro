@@ -280,6 +280,11 @@ Prefab:
       propertyPath: _parTimeText
       value: 
       objectReference: {fileID: 374786312}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _newRecordText
+      value: ' - NEW RECORD'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47bb4eab8a6514145a26cc152a355987, type: 2}
   m_IsPrefabParent: 0
@@ -555,6 +560,21 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224687605049321796, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 224687605049321796, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 224687605049321796, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -75.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ecd2a258b4688a4d8aff2fe74f0706a, type: 2}
@@ -915,11 +935,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4206331263661606, guid: 892ffe6ac7cbf914798c07cb3622c974, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.770074
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 4206331263661606, guid: 892ffe6ac7cbf914798c07cb3622c974, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.68417364
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4206331263661606, guid: 892ffe6ac7cbf914798c07cb3622c974, type: 2}
       propertyPath: m_LocalPosition.z
