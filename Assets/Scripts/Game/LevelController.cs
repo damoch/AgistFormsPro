@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace AgistForms.Assets.Scripts.Game
 {
-    [RequireComponent(typeof(LevelData), typeof(UIController))]
+    [RequireComponent(typeof(LevelData), typeof(UIController), typeof(ScoreData))]
     public class LevelController : MonoBehaviour
     {
         [SerializeField]
@@ -28,13 +28,13 @@ namespace AgistForms.Assets.Scripts.Game
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
         private LevelData _levelData;
         private UIController _uiController;
-        private float _levelTime;
-        private int _shapeShiftsCount;
+        private ScoreData _scoreData;
 
         private void Start()
         {
             _uiController = GetComponent<UIController>();
             _levelData = GetComponent<LevelData>();
+            _scoreData = GetComponent<ScoreData>();
             GenerateGameplayRules();
             InjectControllerInShapes();
             UpdateAllShapes(_levelData.Player.ShapeType);
@@ -69,8 +69,8 @@ namespace AgistForms.Assets.Scripts.Game
             switch (_gameState)
             {
                 case GameState.GamePlaying:
-                    _levelTime += Time.deltaTime;
-                    _uiController.TimeText = _levelTime.ToString(_uiController.TimeDisplayFormat);
+                    _scoreData.LevelTime += Time.deltaTime;
+                    _uiController.TimeText = _scoreData.LevelTime.ToString(_uiController.TimeDisplayFormat);
                     break;
                 case GameState.GameOver:
                     if (Input.GetKey(_restartKeyCode))
@@ -102,10 +102,11 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 return;
             }
+            _uiController.EnableParTexts(false);
             _gameState = GameState.GamePlaying;
             _levelData.Player.gameObject.SetActive(true);
-            _levelTime = 0;
-            _shapeShiftsCount = 0;
+            _scoreData.LevelTime = 0;
+            UpdateShapeShiftsText(0);
             LoadSavedState();
         }
 
@@ -198,13 +199,26 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 shape.gameObject.SetActive(false);
             }
+            HandleScores();
+        }
+
+        private void HandleScores()
+        {
+            _uiController.EnableParTexts(true);
+            _uiController.SetShapeShiftsPar(_scoreData.ShapeShiftsRecord ? _scoreData.ShapeShifts : _scoreData.LowestShapeShifts, _scoreData.ShapeShiftsRecord);
+            _uiController.SetTimePar(_scoreData.IsTimeRecord ? _scoreData.LevelTime : _scoreData.BestTime, _scoreData.IsTimeRecord);
         }
 
         public void ShapeShift(ShapeType playerShapeType)
         {
-            _shapeShiftsCount++;
-            _uiController.ShapeShiftsText = _shapeShiftsCount.ToString();
+            UpdateShapeShiftsText(++_scoreData.ShapeShifts);
             UpdateAllShapes(playerShapeType);
+        }
+
+        private void UpdateShapeShiftsText(int newCount)
+        {
+            _scoreData.ShapeShifts = newCount;
+            _uiController.ShapeShiftsText = newCount.ToString();
         }
 
     }

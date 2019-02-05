@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4911517372363992}
   - component: {fileID: 114436152524581454}
   - component: {fileID: 114294503369449366}
+  - component: {fileID: 114516995636758866}
+  - component: {fileID: 114684734866326540}
   m_Layer: 0
   m_Name: LevelController
   m_TagString: Untagged
@@ -105,3 +107,38 @@ MonoBehaviour:
   _gameState: 0
   _restartKeyCode: 114
   _confirmNextLevelKeyCode: 32
+--- !u!114 &114516995636758866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062906422925234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 353a99288a1841a4eaac3c49e00d839f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeText: {fileID: 0}
+  _shapeShiftsText: {fileID: 0}
+  _timeDisplayFormat: 0.00
+  _goodColor: {r: 0, g: 0.9852941, b: 0.0883367, a: 1}
+  _badColor: {r: 1, g: 0, b: 0, a: 1}
+  _parTimeText: {fileID: 0}
+  _parShapeShiftsText: {fileID: 0}
+  _shapeShiftsParText: 'Par shifts: '
+  _timeParText: 'Par time: '
+--- !u!114 &114684734866326540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1062906422925234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f48ca85a73fe494eaf402d5e0acb047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelTime: 0
+  _shapeShifts: 0
+  _bestTime: 10
+  _lowestShapeShifts: 0
