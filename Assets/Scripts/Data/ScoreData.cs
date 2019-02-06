@@ -11,7 +11,7 @@ namespace AgistForms.Assets.Scripts.Data
         private int _shapeShifts;
 
         [SerializeField]
-        private int _bestTime;
+        private float _bestTime;
 
         [SerializeField]
         private int _lowestShapeShifts;
@@ -42,11 +42,15 @@ namespace AgistForms.Assets.Scripts.Data
             }
         }
 
-        public int BestTime
+        public float BestTime
         {
             get
             {
                 return _bestTime;
+            }
+            set
+            {
+                _bestTime = value;
             }
         }
 
@@ -56,7 +60,13 @@ namespace AgistForms.Assets.Scripts.Data
             {
                 return _lowestShapeShifts;
             }
+            set
+            {
+                _lowestShapeShifts = value;
+            }
         }
+
+        public string LevelName { get; set; }
 
         public bool ShapeShiftsRecord { get { return _shapeShifts <= _lowestShapeShifts; } }
         public bool IsTimeRecord { get { return _levelTime <= _bestTime; } }

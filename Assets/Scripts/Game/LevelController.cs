@@ -1,5 +1,6 @@
 ﻿using AgistForms.Assets.Scripts.Data;
 using AgistForms.Assets.Scripts.Enums;
+using AgistForms.Assets.Scripts.IO;
 using AgistForms.Assets.Scripts.Structs;
 using AgistForms.Assets.Scripts.UI;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using UnityEngine.SceneManagement;
 namespace AgistForms.Assets.Scripts.Game
 {
     [RequireComponent(typeof(LevelData), typeof(UIController), typeof(ScoreData))]
+    [RequireComponent(typeof(SaveManager))]
     public class LevelController : MonoBehaviour
     {
         [SerializeField]
@@ -29,12 +31,18 @@ namespace AgistForms.Assets.Scripts.Game
         private LevelData _levelData;
         private UIController _uiController;
         private ScoreData _scoreData;
+        private SaveManager _saveManager;
 
         private void Start()
         {
             _uiController = GetComponent<UIController>();
             _levelData = GetComponent<LevelData>();
             _scoreData = GetComponent<ScoreData>();
+            _saveManager = GetComponent<SaveManager>();
+
+            _saveManager.Init();
+            _scoreData.LevelName = SceneManager.GetActiveScene().name;
+            _saveManager.LoadHiScore(_scoreData);
             GenerateGameplayRules();
             InjectControllerInShapes();
             UpdateAllShapes(_levelData.Player.ShapeType);
@@ -205,8 +213,30 @@ namespace AgistForms.Assets.Scripts.Game
         private void HandleScores()
         {
             _uiController.EnableParTexts(true);
-            _uiController.SetShapeShiftsPar(_scoreData.ShapeShiftsRecord ? _scoreData.ShapeShifts : _scoreData.LowestShapeShifts, _scoreData.ShapeShiftsRecord);
-            _uiController.SetTimePar(_scoreData.IsTimeRecord ? _scoreData.LevelTime : _scoreData.BestTime, _scoreData.IsTimeRecord);
+            if (_scoreData.ShapeShiftsRecord)
+            {
+                _scoreData.LowestShapeShifts = _scoreData.ShapeShifts;
+                _uiController.SetShapeShiftsPar(_scoreData.ShapeShifts, true);
+            }
+            else
+            {
+                _uiController.SetShapeShiftsPar(_scoreData.LowestShapeShifts, false);
+            }
+
+            if (_scoreData.IsTimeRecord)
+            {
+                _scoreData.BestTime = _scoreData.LevelTime;
+                _uiController.SetTimePar(_scoreData.LevelTime, true);
+            }
+            else
+            {
+                _uiController.SetTimePar(_scoreData.BestTime, true);
+            }
+            if(_scoreData.IsTimeRecord || _scoreData.ShapeShiftsRecord)
+            {
+                _saveManager.SaveHiScore(_scoreData);
+            }
+
         }
 
         public void ShapeShift(ShapeType playerShapeType)
