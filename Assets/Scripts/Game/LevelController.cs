@@ -111,6 +111,7 @@ namespace AgistForms.Assets.Scripts.Game
                 return;
             }
             _uiController.EnableParTexts(false);
+            _uiController.SetEndLevelText(false);
             _gameState = GameState.GamePlaying;
             _levelData.Player.gameObject.SetActive(true);
             _scoreData.LevelTime = 0;
@@ -185,6 +186,7 @@ namespace AgistForms.Assets.Scripts.Game
         public void SetGameOver()
         {
             _gameState = GameState.GameOver;
+            _uiController.SetEndLevelText(true, false, _restartKeyCode.ToString());
             _levelData.Player.gameObject.SetActive(false);
         }
 
@@ -203,6 +205,7 @@ namespace AgistForms.Assets.Scripts.Game
         private void SetLevelCompleted()
         {
             _gameState = GameState.LevelCompleted;
+            _uiController.SetEndLevelText(true, true, _confirmNextLevelKeyCode.ToString());
             foreach (var shape in _levelData.Shapes)
             {
                 shape.gameObject.SetActive(false);

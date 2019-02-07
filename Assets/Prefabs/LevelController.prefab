@@ -55,8 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc591eba11152cc43aaaf8e74ac954e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapes:
-  - {fileID: 0}
+  _shapes: []
   _targetShapes:
   - {fileID: 0}
   _player: {fileID: 0}
@@ -79,7 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hiScoresFileName: hiScores.afdata
-  _savedScores: []
 --- !u!114 &114436152524581454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,6 +138,9 @@ MonoBehaviour:
   _badColor: {r: 1, g: 0, b: 0, a: 1}
   _parTimeText: {fileID: 0}
   _parShapeShiftsText: {fileID: 0}
+  _endLevelText: {fileID: 0}
+  _winLevelMessage: Level completed. Press {0} to continue...
+  _gameOverMessage: Game over. Press {0} to restart.
   _shapeShiftsParText: 'Par shifts: '
   _timeParText: 'Par time: '
   _newRecordText: ' - NEW RECORD'

@@ -61,6 +61,15 @@ namespace AgistForms.Assets.Scripts.UI
         private Text _parShapeShiftsText;
 
         [SerializeField]
+        private Text _endLevelText;
+
+        [SerializeField]
+        private string _winLevelMessage;
+
+        [SerializeField]
+        private string _gameOverMessage;
+
+        [SerializeField]
         private string _shapeShiftsParText;
 
         [SerializeField]
@@ -91,6 +100,17 @@ namespace AgistForms.Assets.Scripts.UI
             _parTimeText.text = _timeParText + value.ToString(_timeDisplayFormat) + (isRecord ? _newRecordText : "");
             _parTimeText.color = isRecord ? _goodColor : _badColor;
 
+        }
+
+        public void SetEndLevelText(bool show, bool victory = false, string keyToPress = null)
+        {
+            _endLevelText.gameObject.SetActive(show);
+            if (!show)
+            {
+                return;
+            }
+            var message = victory ? _winLevelMessage : _gameOverMessage;
+            _endLevelText.text = string.Format(message, keyToPress);
         }
     }
 }

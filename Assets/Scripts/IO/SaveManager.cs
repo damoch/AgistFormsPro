@@ -45,7 +45,7 @@ namespace AgistForms.Assets.Scripts.IO
                 return;
             }
             data.BestTime = existing.Time;
-            data.ShapeShifts = existing.ShiftsCount;
+            data.LowestShapeShifts = existing.ShiftsCount;
         }
 
         public void SaveHiScore(ScoreData data)
