@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AgistForms.Assets.Scripts.UI
@@ -78,6 +79,26 @@ namespace AgistForms.Assets.Scripts.UI
         [SerializeField]
         private string _newRecordText;
 
+        [SerializeField]
+        private GameObject _pausePanel;
+
+        [SerializeField]
+        private string _pauseMessage;
+
+        [SerializeField]
+        private string _resumeText;
+
+        [SerializeField]
+        private string _exitText;
+
+        [SerializeField]
+        private string _restartText;
+
+        [SerializeField]
+        private Text _pauseText;
+
+        private string _pauseMsg;
+
         private void Start()
         {
             EnableParTexts(false);
@@ -111,6 +132,18 @@ namespace AgistForms.Assets.Scripts.UI
             }
             var message = victory ? _winLevelMessage : _gameOverMessage;
             _endLevelText.text = string.Format(message, keyToPress);
+        }
+
+        public void EnablePausePanel(bool enable)
+        {
+            _pausePanel.SetActive(enable);
+            _pauseText.text = _pauseMsg;
+        }
+
+        public void SetPauseMessage(string resumeKey, string exitKey, string restartKey)
+        {
+            _pauseMsg = _pauseMessage + Environment.NewLine + string.Format(_restartText, restartKey) + Environment.NewLine + string.Format(_exitText, exitKey) +
+                Environment.NewLine + string.Format(_resumeText, resumeKey);
         }
     }
 }

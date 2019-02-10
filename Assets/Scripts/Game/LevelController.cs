@@ -3,6 +3,7 @@ using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.IO;
 using AgistForms.Assets.Scripts.Structs;
 using AgistForms.Assets.Scripts.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,12 +27,16 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private KeyCode _confirmNextLevelKeyCode;
 
+        [SerializeField]
+        private KeyCode _pauseKeyCode;
+
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
         private LevelData _levelData;
         private UIController _uiController;
         private ScoreData _scoreData;
         private SaveManager _saveManager;
+        private float _defaultGameSpeed;
 
         private void Start()
         {
@@ -43,6 +48,7 @@ namespace AgistForms.Assets.Scripts.Game
             _saveManager.Init();
             _scoreData.LevelName = SceneManager.GetActiveScene().name;
             _saveManager.LoadHiScore(_scoreData);
+            _uiController.SetPauseMessage(_confirmNextLevelKeyCode.ToString(), _pauseKeyCode.ToString(), _restartKeyCode.ToString());
             GenerateGameplayRules();
             InjectControllerInShapes();
             UpdateAllShapes(_levelData.Player.ShapeType);
@@ -79,6 +85,10 @@ namespace AgistForms.Assets.Scripts.Game
                 case GameState.GamePlaying:
                     _scoreData.LevelTime += Time.deltaTime;
                     _uiController.TimeText = _scoreData.LevelTime.ToString(_uiController.TimeDisplayFormat);
+                    if (Input.GetKey(_pauseKeyCode))
+                    {
+                        EnablePause(true);
+                    }
                     break;
                 case GameState.GameOver:
                     if (Input.GetKey(_restartKeyCode))
@@ -92,8 +102,45 @@ namespace AgistForms.Assets.Scripts.Game
                         GoToNextLevel();
                     }
                     break;
+                case GameState.Pause:
+                    if (Input.GetKey(_restartKeyCode))
+                    {
+                        StartNewGame();
+                        EnablePause(false);
+                    }
+                    if (Input.GetKey(_confirmNextLevelKeyCode))
+                    {
+                        EnablePause(false);
+                    }
+                    if (Input.GetKeyDown(_pauseKeyCode))
+                    {
+                        ExitLevel();
+                    }
+
+                    break;
             }
 
+        }
+
+        private void ExitLevel()
+        {
+            Application.Quit();
+        }
+
+        private void EnablePause(bool enable)
+        {
+            _uiController.EnablePausePanel(enable);
+            if (enable)
+            {
+                _defaultGameSpeed = Time.timeScale;
+                Time.timeScale = 0;
+                _gameState = GameState.Pause;
+            }
+            else
+            {
+                Time.timeScale = _defaultGameSpeed;
+                _gameState = GameState.GamePlaying;
+            }
         }
 
         private void GoToNextLevel()

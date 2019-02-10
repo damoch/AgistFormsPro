@@ -282,6 +282,36 @@ Prefab:
       propertyPath: _lowestShapeShifts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _pausePanel
+      value: 
+      objectReference: {fileID: 1587611093}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _pauseMessage
+      value: Game paused.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _resumeText
+      value: Press {0} to resume.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _exitText
+      value: Press {0} to exit level.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _restartText
+      value: Press {0} to restart level.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114516995636758866, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _pauseText
+      value: 
+      objectReference: {fileID: 1587611092}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47bb4eab8a6514145a26cc152a355987, type: 2}
   m_IsPrefabParent: 0
@@ -937,6 +967,17 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ecd2a258b4688a4d8aff2fe74f0706a, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1587611092 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114104190948746740, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1587611091}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!1 &1587611093 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1892125989958788, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1587611091}
 --- !u!114 &1658189419 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114758339055142272, guid: 8ecd2a258b4688a4d8aff2fe74f0706a,
