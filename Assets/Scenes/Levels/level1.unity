@@ -267,6 +267,21 @@ Prefab:
       propertyPath: _borders.Array.data[3]
       value: 
       objectReference: {fileID: 1013600300}
+    - target: {fileID: 114294503369449366, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _nextLevelName
+      value: level2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114684734866326540, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _bestTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114684734866326540, guid: 47bb4eab8a6514145a26cc152a355987,
+        type: 2}
+      propertyPath: _lowestShapeShifts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47bb4eab8a6514145a26cc152a355987, type: 2}
   m_IsPrefabParent: 0

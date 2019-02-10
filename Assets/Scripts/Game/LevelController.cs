@@ -233,7 +233,7 @@ namespace AgistForms.Assets.Scripts.Game
             }
             else
             {
-                _uiController.SetTimePar(_scoreData.BestTime, true);
+                _uiController.SetTimePar(_scoreData.BestTime, false);
             }
             if(_scoreData.IsTimeRecord || _scoreData.ShapeShiftsRecord)
             {

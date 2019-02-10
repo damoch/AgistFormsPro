@@ -43,3 +43,5 @@ sysinfo.txt
 # Crashlytics generated file
 Assets/StreamingAssets/crashlytics-build.properties
 
+Assets/hiScores.afdata.meta
+Assets/hiScores.afdata
