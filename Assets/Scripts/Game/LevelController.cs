@@ -30,6 +30,9 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private KeyCode _pauseKeyCode;
 
+        [SerializeField]
+        private string _mainMenuScene;
+
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
         private LevelData _levelData;
@@ -124,7 +127,7 @@ namespace AgistForms.Assets.Scripts.Game
 
         private void ExitLevel()
         {
-            Application.Quit();
+            SceneManager.LoadScene(_mainMenuScene);
         }
 
         private void EnablePause(bool enable)

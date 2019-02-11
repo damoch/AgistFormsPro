@@ -25,7 +25,7 @@ namespace AgistForms.Assets.Scripts.IO
         private void LoadSavedScores()
         {
             _savedScores = new List<SavedScore>();
-            if (!File.Exists(_hiScoresPath))
+            if (!File.Exists(_hiScoresPath) || Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 return;
             }
@@ -50,6 +50,10 @@ namespace AgistForms.Assets.Scripts.IO
 
         public void SaveHiScore(ScoreData data)
         {
+            if(Application.platform == RuntimePlatform.WebGLPlayer)
+            {
+                return;
+            }
             var existing = _savedScores.FirstOrDefault(x => x.LevelName == data.LevelName);
             if (existing != null)
             {
