@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd53b07932e19594fa628247cee39dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 2.5
   _shapeType: 0
   _startDirection: 0
   _friendlySprites:
@@ -111,6 +111,7 @@ MonoBehaviour:
     ShapeType: 1
   _friendlyColor: {r: 0, g: 0.9338235, b: 0.12236298, a: 1}
   _enemyColor: {r: 0.875, g: 0, b: 0, a: 1}
+  _hardSpeed: 3
 --- !u!212 &212859593689018220
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -120,6 +120,8 @@ MonoBehaviour:
   _gameState: 0
   _restartKeyCode: 114
   _confirmNextLevelKeyCode: 32
+  _pauseKeyCode: 27
+  _mainMenuScene: mainMenu
 --- !u!114 &114516995636758866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,6 +146,12 @@ MonoBehaviour:
   _shapeShiftsParText: 'Par shifts: '
   _timeParText: 'Par time: '
   _newRecordText: ' - NEW RECORD'
+  _pausePanel: {fileID: 0}
+  _pauseMessage: 
+  _resumeText: 
+  _exitText: 
+  _restartText: 
+  _pauseText: {fileID: 0}
 --- !u!114 &114684734866326540
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -33,6 +33,9 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private string _mainMenuScene;
 
+        [SerializeField]
+        private GameDifficultyLevel _difficultyLevel;
+
         private Dictionary<ShapeType, Dictionary<ShapeType, CollisionResult>> _gameplayRules;
         private Dictionary<MonoBehaviour, ObjectSaveState> _startLevelState;
         private LevelData _levelData;
@@ -41,6 +44,14 @@ namespace AgistForms.Assets.Scripts.Game
         private SaveManager _saveManager;
         private float _defaultGameSpeed;
 
+        public GameDifficultyLevel DifficultyLevel
+        {
+            get
+            {
+                return _difficultyLevel;
+            }
+        }
+
         private void Start()
         {
             _uiController = GetComponent<UIController>();
@@ -48,6 +59,7 @@ namespace AgistForms.Assets.Scripts.Game
             _scoreData = GetComponent<ScoreData>();
             _saveManager = GetComponent<SaveManager>();
 
+            SetDifficultyLevel();
             _saveManager.Init();
             _scoreData.LevelName = SceneManager.GetActiveScene().name;
             _saveManager.LoadHiScore(_scoreData);
@@ -58,6 +70,18 @@ namespace AgistForms.Assets.Scripts.Game
 
             SaveLevelState();
             StartNewGame();
+        }
+
+        private void SetDifficultyLevel()
+        {
+            if (PlayerPrefs.HasKey(typeof(GameDifficultyLevel).ToString()))
+            {
+                _difficultyLevel = (GameDifficultyLevel)PlayerPrefs.GetInt(typeof(GameDifficultyLevel).ToString());
+            }
+            else
+            {
+                _difficultyLevel = GameDifficultyLevel.Normal;
+            }
         }
 
         private void SaveLevelState()
@@ -127,6 +151,7 @@ namespace AgistForms.Assets.Scripts.Game
 
         private void ExitLevel()
         {
+            Time.timeScale = _defaultGameSpeed;
             SceneManager.LoadScene(_mainMenuScene);
         }
 
@@ -195,6 +220,11 @@ namespace AgistForms.Assets.Scripts.Game
                 item.SuccesfullCollison = false;
             }
 
+            foreach (var shape in _levelData.BlockerShapes)
+            {
+                shape.gameObject.SetActive(true);
+            }
+
             UpdateAllShapes(_levelData.Player.ShapeType);
         }
 
@@ -260,6 +290,7 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 shape.gameObject.SetActive(false);
             }
+            _levelData.Player.gameObject.SetActive(false);
             HandleScores();
         }
 

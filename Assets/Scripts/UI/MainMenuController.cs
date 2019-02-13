@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AgistForms.Assets.Scripts.Enums;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -41,6 +42,13 @@ namespace AgistForms.Assets.Scripts.UI
 
         public void StartLevel(string levelName)
         {
+            PlayerPrefs.SetInt(typeof(GameDifficultyLevel).ToString(), (int)GameDifficultyLevel.Normal);
+            SceneManager.LoadScene(levelName);
+        }
+
+        public void StartLevelHard(string levelName)
+        {
+            PlayerPrefs.SetInt(typeof(GameDifficultyLevel).ToString(), (int)GameDifficultyLevel.Hard);
             SceneManager.LoadScene(levelName);
         }
     }

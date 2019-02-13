@@ -25,6 +25,9 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private Color _enemyColor;
 
+        [SerializeField]
+        private float _hardSpeed;
+
         private Rigidbody2D _rigidbody2D;
         private SpriteRenderer _spriteRenderer;
         private Dictionary<ShapeType, Sprite> _friendlySpritesCache;
@@ -35,14 +38,26 @@ namespace AgistForms.Assets.Scripts.Game
             { Direction.Left, Vector2.left },
             { Direction.Right, Vector2.right },
             { Direction.UpRight, new Vector2(1,1) },
-            { Direction.DownRight, new Vector2(-1,1) },
-            { Direction.UpLeft, new Vector2(1,-1) },
+            { Direction.DownRight, new Vector2(1,-1) },
+            { Direction.UpLeft, new Vector2(-1,1) },
             { Direction.DownLeft, new Vector2(-1,-1) },
         };
         private CollisionResult _collisionResult;
+        private float _movementSpeed;
+        private LevelController _levelController;
 
-
-        public LevelController LevelController { get; set; }
+        public LevelController LevelController
+        {
+            get
+            {
+                return _levelController;
+            }
+            set
+            {
+                _levelController = value;
+                AddForces();
+            }
+        }
         public CollisionResult CollisionResult
         {
             get { return _collisionResult; }
@@ -82,7 +97,12 @@ namespace AgistForms.Assets.Scripts.Game
 
         public void AddForces()
         {
-            _rigidbody2D.velocity = _directionToVector[_startDirection] * _speed;
+            if (!_levelController)
+            {
+                return;
+            }
+            _movementSpeed = _levelController.DifficultyLevel == GameDifficultyLevel.Hard ? _hardSpeed : _speed;
+            _rigidbody2D.velocity = _directionToVector[_startDirection] * _movementSpeed;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
