@@ -3,7 +3,6 @@ using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.IO;
 using AgistForms.Assets.Scripts.Structs;
 using AgistForms.Assets.Scripts.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
