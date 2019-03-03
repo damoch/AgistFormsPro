@@ -17,9 +17,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private Dropdown _directionDropdown;
 
         private EditorFile _editorFile;
-        private EditorShape _currentShape;
+        private BaseEditorShape _currentShape;
 
-        public EditorShape CurrentShape
+        public BaseEditorShape CurrentShape
         {
             get
             {
@@ -29,7 +29,10 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             {
 
                 _currentShape = value;
-                _directionDropdown.value = (int)_currentShape.StartDirection;
+                if(_currentShape is EditorShape)
+                {
+                    _directionDropdown.value = (int)((EditorShape)_currentShape).StartDirection;
+                }
             }
         }
 
@@ -60,10 +63,11 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         public void CreateNewShape(int shapeType)
         {
             var gObj = Instantiate(_editorObjectPrototype);
-            CurrentShape = gObj.GetComponent<EditorShape>();
-            CurrentShape.InjectController(this);
+            var curr = gObj.GetComponent<EditorShape>();
+            CurrentShape = curr;
+            curr.InjectController(this);
             ChangeCurrentShape(shapeType);
-            _editorFile.FreeShapes.Add(CurrentShape);
+            _editorFile.FreeShapes.Add(curr);
         }
 
         public void ChangeCurrentShape(int shapeType)
@@ -82,11 +86,11 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public void OnDroptownValueChanged(Dropdown change)
         {
-            if (!_currentShape)
+            if (!_currentShape || !(_currentShape is EditorShape))
             {
                 return;
             }
-            _currentShape.StartDirection = (Direction)change.value;
+            ((EditorShape)_currentShape).StartDirection = (Direction)change.value;
         }
     }
 }
