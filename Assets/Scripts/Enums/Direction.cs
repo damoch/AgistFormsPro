@@ -2,6 +2,6 @@
 {
     public enum Direction
     {
-        Up, Down, Left, Right, UpLeft, DownLeft, UpRight, DownRight
+        Up, Down, Left, Right, UpLeft, DownLeft, UpRight, DownRight //NEVER change order of these!
     }
 }

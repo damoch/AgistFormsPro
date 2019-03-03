@@ -51,6 +51,19 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public bool IsDragging { get; set; }
 
+        public Direction StartDirection
+        {
+            get
+            {
+                return _startDirection;
+            }
+
+            set
+            {
+                _startDirection = value;
+            }
+        }
+
         private void Start()
         {
             _mainCamera = FindObjectOfType<Camera>();
@@ -80,6 +93,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void OnMouseDown()
         {
+            _controller.CurrentShape = this;
             IsDragging = true;
         }
 
@@ -103,7 +117,8 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             return new ObjectSaveState
             {
                 StartingPosition = transform.position,
-                StartingShapeType = _shapeType
+                StartingShapeType = _shapeType,
+                StartingDirection = _startDirection
             };
         }
     }

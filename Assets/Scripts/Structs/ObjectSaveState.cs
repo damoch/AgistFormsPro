@@ -7,5 +7,6 @@ namespace AgistForms.Assets.Scripts.Structs
     {
         public Vector2 StartingPosition;
         public ShapeType StartingShapeType;
+        public Direction StartingDirection;
     }
 }
