@@ -97,5 +97,14 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         {
             _controller = ec;
         }
+
+        public ObjectSaveState GetSaveState()
+        {
+            return new ObjectSaveState
+            {
+                StartingPosition = transform.position,
+                StartingShapeType = _shapeType
+            };
+        }
     }
 }

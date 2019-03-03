@@ -1,6 +1,8 @@
-﻿using AgistForms.Assets.Scripts.Structs;
+﻿using AgistForms.Assets.Scripts.IO;
+using AgistForms.Assets.Scripts.Structs;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
 namespace AgistForms.Assets.Scripts.LevelEditor
@@ -11,9 +13,18 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private GameObject _editorObjectPrototype;
 
         private EditorShape _currentShape;
+        private EditorFile _editorFile;
 
-        [SerializeField]
-        private List<EditorShape> _shapesOnScene;
+
+        private void Start()
+        {
+            CreateNewLevel();
+        }
+
+        private void CreateNewLevel()
+        {
+            _editorFile = new EditorFile("test");
+        }
 
         public void CreateNewShape(int shapeType)
         {
@@ -21,29 +32,12 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             _currentShape = gObj.GetComponent<EditorShape>();
             _currentShape.InjectController(this);
             _currentShape.ShapeType = (Enums.ShapeType)shapeType;
-            _shapesOnScene.Add(_currentShape);
+            _editorFile.FreeShapes.Add(_currentShape);
         }
 
         public void SaveLevel()
         {
-            var savedShapes = new string[_shapesOnScene.Count];
-
-            for (int i = 0; i < _shapesOnScene.Count; i++)
-            {
-                var shape = _shapesOnScene[i];
-                savedShapes[i] = JsonUtility.ToJson(new ObjectSaveState
-                {
-                    StartingPosition = shape.gameObject.transform.position,
-                    StartingShapeType = shape.ShapeType
-                });
-            }
-
-            var json = JsonUtility.ToJson(new 
-            {
-                FreeShapes = savedShapes,
-            });
-            Debug.Log(savedShapes);
-            Debug.Log(JsonUtility.ToJson(savedShapes));
+            Debug.Log(_editorFile.Serialize());
         }
     }
 }

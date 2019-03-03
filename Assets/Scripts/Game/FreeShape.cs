@@ -70,6 +70,20 @@ namespace AgistForms.Assets.Scripts.Game
             }
         }
         public ShapeType ShapeType { get { return _shapeType; } set { _shapeType = value; ChangeShape(); } }
+
+        public Direction StartDirection
+        {
+            get
+            {
+                return _startDirection;
+            }
+
+            set
+            {
+                _startDirection = value;
+            }
+        }
+
         private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -102,7 +116,7 @@ namespace AgistForms.Assets.Scripts.Game
                 return;
             }
             _movementSpeed = _levelController.DifficultyLevel == GameDifficultyLevel.Hard ? _hardSpeed : _speed;
-            _rigidbody2D.velocity = _directionToVector[_startDirection] * _movementSpeed;
+            _rigidbody2D.velocity = _directionToVector[StartDirection] * _movementSpeed;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
