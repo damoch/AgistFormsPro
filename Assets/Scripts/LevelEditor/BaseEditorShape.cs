@@ -57,6 +57,14 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             }
         }
 
+        public virtual void Start()
+        {
+            _mainCamera = FindObjectOfType<Camera>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+
+            PrepareSpriteCaches();
+            ShapeType = ShapeType;
+        }
 
         private void Update()
         {
@@ -75,6 +83,11 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private void OnMouseUp()
         {
             IsDragging = false;
+        }
+
+        public void InjectController(EditorController ec)
+        {
+            _controller = ec;
         }
     }
 }

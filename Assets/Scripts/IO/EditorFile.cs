@@ -10,11 +10,13 @@ namespace AgistForms.Assets.Scripts.IO
         public string LevelName { get; set; }
 
         public List<EditorShape> FreeShapes { get; set; }
+        public PlayerEditorShape PlayerEditorShape { get; set; }
 
-        public EditorFile(string fileName)
+        public EditorFile(string fileName, PlayerEditorShape _shape)
         {
             LevelName = fileName;
             FreeShapes = new List<EditorShape>();
+            PlayerEditorShape = _shape;
         }
 
         public string Serialize()
@@ -30,8 +32,11 @@ namespace AgistForms.Assets.Scripts.IO
             {
                 shapesSerialized.Add(shape.GetSaveState());
             }
+
             result.Add(SaveFileFields.FreeShapesList, 
                        JsonConvert.SerializeObject(shapesSerialized));
+
+            result.Add(SaveFileFields.PlayerShape, JsonConvert.SerializeObject(PlayerEditorShape.GetSaveState()));
 
             return JsonConvert.SerializeObject(result);
         }
@@ -39,6 +44,6 @@ namespace AgistForms.Assets.Scripts.IO
 
     enum SaveFileFields
     {
-        LevelName, FreeShapesList
+        LevelName, FreeShapesList, PlayerShape
     }
 }

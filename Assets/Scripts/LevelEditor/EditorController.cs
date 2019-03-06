@@ -4,12 +4,14 @@ using AgistForms.Assets.Scripts.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace AgistForms.Assets.Scripts.LevelEditor
 {
     public class EditorController : MonoBehaviour
     {
+        [SerializeField]
+        private PlayerEditorShape _playerShape;
+
         [SerializeField]
         private GameObject _editorObjectPrototype;
 
@@ -40,6 +42,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         {
             SetUI();
             CreateNewLevel();
+            _playerShape.InjectController(this);
         }
 
         private void SetUI()
@@ -57,7 +60,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void CreateNewLevel()
         {
-            _editorFile = new EditorFile("test");
+            _editorFile = new EditorFile("test", _playerShape);
         }
 
         public void CreateNewShape(int shapeType)
@@ -76,7 +79,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             {
                 return;
             }
-            CurrentShape.ShapeType = (Enums.ShapeType)shapeType;
+            CurrentShape.ShapeType = (ShapeType)shapeType;
         }
 
         public void SaveLevel()

@@ -10,7 +10,6 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         [SerializeField]
         private Direction _startDirection;
 
-
         public Direction StartDirection
         {
             get
@@ -24,23 +23,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             }
         }
 
-        private void Start()
-        {
-            _mainCamera = FindObjectOfType<Camera>();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-
-            PrepareSpriteCaches();
-            ShapeType = ShapeType;
-        }
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             Debug.Log(collision);
-        }
-
-        public void InjectController(EditorController ec)
-        {
-            _controller = ec;
         }
 
         public ObjectSaveState GetSaveState()
