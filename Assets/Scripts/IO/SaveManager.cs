@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
 
 namespace AgistForms.Assets.Scripts.IO
@@ -73,7 +72,6 @@ namespace AgistForms.Assets.Scripts.IO
             }
 
             File.WriteAllLines(_hiScoresPath, list.ToArray());
-
         }
     }
 

@@ -16,6 +16,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private GameObject _editorObjectPrototype;
 
         [SerializeField]
+        private GameObject _targetShapePrototype;
+
+        [SerializeField]
         private Dropdown _directionDropdown;
 
         private EditorFile _editorFile;
@@ -65,12 +68,35 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public void CreateNewShape(int shapeType)
         {
+            AddShape(shapeType);
+        }
+
+        public void CreateNewTarget(int shapetype)
+        {
+            AddTarget(shapetype);
+        }
+
+        private EditorShape AddShape(int shapeType)
+        {
             var gObj = Instantiate(_editorObjectPrototype);
             var curr = gObj.GetComponent<EditorShape>();
             CurrentShape = curr;
             curr.InjectController(this);
             ChangeCurrentShape(shapeType);
             _editorFile.FreeShapes.Add(curr);
+            return curr;
+        }
+
+
+        private EditorTargetShape AddTarget(int shapeType)
+        {
+            var gObj = Instantiate(_targetShapePrototype);
+            var curr = gObj.GetComponent<EditorTargetShape>();
+            CurrentShape = curr;
+            curr.InjectController(this);
+            ChangeCurrentShape(shapeType);
+            _editorFile.TargetShapes.Add(curr);
+            return curr;
         }
 
         public void ChangeCurrentShape(int shapeType)

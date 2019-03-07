@@ -2,7 +2,7 @@
 
 namespace AgistForms.Assets.Scripts.LevelEditor
 {
-    public class PlayerEditorShape : BaseEditorShape
+    public class EditorTargetShape : BaseEditorShape
     {
         public ObjectSaveState GetSaveState()
         {

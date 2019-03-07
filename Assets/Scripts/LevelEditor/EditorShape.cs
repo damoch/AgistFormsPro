@@ -37,5 +37,13 @@ namespace AgistForms.Assets.Scripts.LevelEditor
                 StartingDirection = _startDirection
             };
         }
+
+
+        public void SetSavedState(ObjectSaveState state)
+        {
+            transform.position = state.StartingPosition;
+            ShapeType = state.StartingShapeType;
+            _startDirection = state.StartingDirection;
+        }
     }
 }
