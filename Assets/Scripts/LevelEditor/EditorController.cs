@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace AgistForms.Assets.Scripts.LevelEditor
 {
+    [RequireComponent(typeof(EditorIOManager))]
     public class EditorController : MonoBehaviour
     {
         [SerializeField]
@@ -23,6 +24,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
+        private EditorIOManager _ioManager;
 
         public BaseEditorShape CurrentShape
         {
@@ -43,6 +45,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void Start()
         {
+            _ioManager = GetComponent<EditorIOManager>();
+            _ioManager.Init();
+
             SetUI();
             CreateNewLevel();
             _playerShape.InjectController(this);
@@ -110,7 +115,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public void SaveLevel()
         {
-            Debug.Log(_editorFile.Serialize());
+            _ioManager.SaveLevelData(_editorFile);
         }
 
         public void OnDroptownValueChanged(Dropdown change)

@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104159485}
   - component: {fileID: 104159484}
+  - component: {fileID: 104159486}
   m_Layer: 0
   m_Name: EditorController
   m_TagString: Untagged
@@ -143,7 +144,8 @@ MonoBehaviour:
   _playerShape: {fileID: 1559738220}
   _editorObjectPrototype: {fileID: 1065043909651786, guid: a69de70d091e4594fa77bbc97fb7509a,
     type: 2}
-  _targetShapePrototype: {fileID: 0}
+  _targetShapePrototype: {fileID: 1290343181399350, guid: 06146ea5d895310489f2e48a87b6f7dc,
+    type: 2}
   _directionDropdown: {fileID: 154758403}
 --- !u!4 &104159485
 Transform:
@@ -158,6 +160,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &104159486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 104159483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5733e597ad19a48ac01ea778074913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelsFolderName: levels
+  _levelFileExt: .aflvl
 --- !u!1 &150622776
 GameObject:
   m_ObjectHideFlags: 0
