@@ -22,6 +22,15 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         [SerializeField]
         private Dropdown _directionDropdown;
 
+        [SerializeField]
+        private InputField _filenameField;
+
+        [SerializeField]
+        private GameObject _editorPanel;
+
+        [SerializeField]
+        private GameObject _newLevelPanel;
+
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
         private EditorIOManager _ioManager;
@@ -48,13 +57,13 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             _ioManager = GetComponent<EditorIOManager>();
             _ioManager.Init();
 
-            SetUI();
-            CreateNewLevel();
-            _playerShape.InjectController(this);
+            var lvls = _ioManager.GetSavedLevels();
         }
 
         private void SetUI()
         {
+            _newLevelPanel.SetActive(false);
+            _editorPanel.SetActive(true);
             var enumOptions = Enum.GetNames(typeof(Direction)).ToList();
             _directionDropdown.ClearOptions();
             _directionDropdown.AddOptions(enumOptions);
@@ -66,9 +75,11 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         }
 
-        private void CreateNewLevel()
+        public void CreateNewLevel()
         {
-            _editorFile = new EditorFile("test", _playerShape);
+            _playerShape.InjectController(this);
+            _editorFile = new EditorFile(_filenameField.text, _playerShape);
+            SetUI();
         }
 
         public void CreateNewShape(int shapeType)
