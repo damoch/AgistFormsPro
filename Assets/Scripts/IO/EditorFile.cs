@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 namespace AgistForms.Assets.Scripts.IO
 {
+    public delegate EditorShape CreateEditorShapeDelegate(int type);
+    public delegate EditorTargetShape CreateEditorTargetShapeDelegate(int type);
     public class EditorFile
     {
         public string LevelName { get; set; }
@@ -52,11 +54,29 @@ namespace AgistForms.Assets.Scripts.IO
             return JsonConvert.SerializeObject(result);
         }
 
-        public static EditorFile FromJson(string json, PlayerEditorShape playeShape)
+        public static EditorFile FromJson(string json, PlayerEditorShape playeShape, CreateEditorShapeDelegate newShapeAction, CreateEditorTargetShapeDelegate newTargetAction)
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<SaveFileFields, string>>(json);
 
             var result = new EditorFile(dict[SaveFileFields.LevelName], playeShape);
+            result.PlayerEditorShape.SetSavedState(JsonConvert.DeserializeObject<ObjectSaveState>(dict[SaveFileFields.PlayerShape]));
+
+            var freeShapesList = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.FreeShapesList]);
+            foreach (var freeSerialized in freeShapesList)
+            {
+                var newShape = newShapeAction((int)freeSerialized.StartingShapeType);
+                newShape.SetSavedState(freeSerialized);
+                result.FreeShapes.Add(newShape);
+            }
+
+            var targetSerializedList = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.TargetShapes]);
+            foreach (var targetSerialized in targetSerializedList)
+            {
+                var newShape = newTargetAction((int)targetSerialized.StartingShapeType);
+                newShape.SetSavedState(targetSerialized);
+                result.TargetShapes.Add(newShape);
+            }
+
             return result;
         }
     }

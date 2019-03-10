@@ -44,5 +44,10 @@ namespace AgistForms.Assets.Scripts.IO
             }
             return result;
         }
+
+        public string GetLevelData(string fileName)
+        {
+            return File.ReadAllText(_levelsSaveLocation + Path.DirectorySeparatorChar + fileName + _levelFileExt);
+        }
     }
 }

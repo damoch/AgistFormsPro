@@ -23,6 +23,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private Dropdown _directionDropdown;
 
         [SerializeField]
+        private Dropdown _selectLevelDropdown;
+
+        [SerializeField]
         private InputField _filenameField;
 
         [SerializeField]
@@ -56,8 +59,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         {
             _ioManager = GetComponent<EditorIOManager>();
             _ioManager.Init();
-
-            var lvls = _ioManager.GetSavedLevels();
+            SetWelcomeScreenUI();
         }
 
         private void SetUI()
@@ -71,14 +73,26 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             {
                 OnDroptownValueChanged(_directionDropdown);
             });
+        }
 
-
+        private void SetWelcomeScreenUI()
+        {
+            var lvls = _ioManager.GetSavedLevels();
+            _selectLevelDropdown.ClearOptions();
+            _selectLevelDropdown.AddOptions(lvls.ToList());
         }
 
         public void CreateNewLevel()
         {
             _playerShape.InjectController(this);
             _editorFile = new EditorFile(_filenameField.text, _playerShape);
+            SetUI();
+        }
+
+        public void LoadSelectedLevel()
+        {
+            var json = _ioManager.GetLevelData(_selectLevelDropdown.options[_selectLevelDropdown.value].text);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
             SetUI();
         }
 
@@ -99,7 +113,10 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             CurrentShape = curr;
             curr.InjectController(this);
             ChangeCurrentShape(shapeType);
-            _editorFile.FreeShapes.Add(curr);
+            if(_editorFile != null)
+            {
+                _editorFile.FreeShapes.Add(curr);
+            }
             return curr;
         }
 
@@ -111,7 +128,10 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             CurrentShape = curr;
             curr.InjectController(this);
             ChangeCurrentShape(shapeType);
-            _editorFile.TargetShapes.Add(curr);
+            if(_editorFile != null)
+            {
+                _editorFile.TargetShapes.Add(curr);
+            }
             return curr;
         }
 
