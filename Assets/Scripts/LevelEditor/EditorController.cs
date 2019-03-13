@@ -93,6 +93,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         {
             var json = _ioManager.GetLevelData(_selectLevelDropdown.options[_selectLevelDropdown.value].text);
             _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
+            _playerShape.InjectController(this);
             SetUI();
         }
 

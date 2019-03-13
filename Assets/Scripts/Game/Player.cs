@@ -1,6 +1,5 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -55,6 +54,10 @@ namespace AgistForms.Assets.Scripts.Game
             set
             {
                 _shapeType = value;
+                if(_spriteRenderer == null)
+                {
+                    return;
+                }
                 _spriteRenderer.sprite = _spriteCache[value];
             }
         }
@@ -63,6 +66,12 @@ namespace AgistForms.Assets.Scripts.Game
         {
             var spd = _speed * Time.deltaTime;
             transform.Translate(_commandToDirection[command] * spd);
+        }
+
+        public void SetSavedState(ObjectSaveState state)
+        {
+            transform.position = state.StartingPosition;
+            ShapeType = state.StartingShapeType;
         }
     }
 }

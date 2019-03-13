@@ -1,4 +1,5 @@
-﻿using AgistForms.Assets.Scripts.LevelEditor;
+﻿using AgistForms.Assets.Scripts.Enums;
+using AgistForms.Assets.Scripts.LevelEditor;
 using AgistForms.Assets.Scripts.Structs;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -79,10 +80,5 @@ namespace AgistForms.Assets.Scripts.IO
 
             return result;
         }
-    }
-
-    enum SaveFileFields
-    {
-        LevelName, FreeShapesList, PlayerShape, TargetShapes
     }
 }
