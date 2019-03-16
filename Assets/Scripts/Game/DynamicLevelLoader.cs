@@ -5,6 +5,7 @@ using AgistForms.Assets.Scripts.IO;
 using AgistForms.Assets.Scripts.Structs;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AgistForms.Assets.Scripts.Game
 {
@@ -13,6 +14,7 @@ namespace AgistForms.Assets.Scripts.Game
     {
         private LevelData _levelData;
         private LevelController _levelController;
+        private DynamicLevelLoaderOption _dynamicLevelLoaderOption;
 
         [SerializeField]
         private string _testFileName;
@@ -26,13 +28,25 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private EditorIOManager _ioManager;
 
+        [SerializeField]
+        private string _levelEditorSceneName;
+
         private void Start()
         {
             _levelData = GetComponent<LevelData>();
             _levelController = GetComponent<LevelController>();
 
+            _dynamicLevelLoaderOption = (DynamicLevelLoaderOption)PlayerPrefs.GetInt(typeof(DynamicLevelLoaderOption).Name);
+
             _ioManager.Init();
-            LoadLevel(_ioManager.GetLevelData(_testFileName));
+            if(_dynamicLevelLoaderOption == DynamicLevelLoaderOption.LoadTempData)
+            {
+                LoadLevel(_ioManager.GetTempLevelData());
+            }
+            else
+            {
+                LoadLevel(_ioManager.GetLevelData(_testFileName));
+            }
         }
 
         private void LoadLevel(string json)
@@ -59,6 +73,12 @@ namespace AgistForms.Assets.Scripts.Game
             }
 
             _levelController.enabled = true;
+        }
+
+        public void GoBackToEditor()
+        {
+            PlayerPrefs.SetInt(typeof(LevelEditorStartupOption).Name, (int)LevelEditorStartupOption.LoadTemp);
+            SceneManager.LoadScene(_levelEditorSceneName);
         }
     }
 }

@@ -55,6 +55,14 @@ namespace AgistForms.Assets.Scripts.IO
             File.WriteAllText(fileName, file.Serialize());
         }
 
+        public void CleanTestData()
+        {
+            if(File.Exists(_levelsSaveLocation + Path.DirectorySeparatorChar + _tempLevelFilename + _levelFileExt))
+            {
+                File.Delete(_levelsSaveLocation + Path.DirectorySeparatorChar + _tempLevelFilename + _levelFileExt);
+            }
+        }
+
         public string GetTempLevelData()
         {
             return File.ReadAllText(_levelsSaveLocation + Path.DirectorySeparatorChar + _tempLevelFilename + _levelFileExt);

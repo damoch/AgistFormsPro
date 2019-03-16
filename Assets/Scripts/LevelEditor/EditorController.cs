@@ -42,6 +42,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
+        private LevelEditorStartupOption _levelEditorStartupOption;
 
         public BaseEditorShape CurrentShape
         {
@@ -62,8 +63,29 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void Start()
         {
+            if (!PlayerPrefs.HasKey(typeof(LevelEditorStartupOption).Name))
+            {
+                _levelEditorStartupOption = LevelEditorStartupOption.NewLevel;
+            }
+            else
+            {
+                _levelEditorStartupOption = (LevelEditorStartupOption)PlayerPrefs.GetInt(typeof(LevelEditorStartupOption).Name);
+            }
+
             _ioManager.Init();
-            SetWelcomeScreenUI();
+
+            if(_levelEditorStartupOption == LevelEditorStartupOption.NewLevel)
+            {
+                SetWelcomeScreenUI();
+
+            }
+            else if(_levelEditorStartupOption == LevelEditorStartupOption.LoadTemp)
+            {
+                LoadTempLevel();
+            }
+
+            _ioManager.CleanTestData();
+            PlayerPrefs.SetInt(typeof(LevelEditorStartupOption).Name, (int)LevelEditorStartupOption.NewLevel);
         }
 
         private void SetUI()
@@ -96,6 +118,14 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         public void LoadSelectedLevel()
         {
             var json = _ioManager.GetLevelData(_selectLevelDropdown.options[_selectLevelDropdown.value].text);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
+            _playerShape.InjectController(this);
+            SetUI();
+        }
+
+        private void LoadTempLevel()
+        {
+            var json = _ioManager.GetTempLevelData();
             _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
             _playerShape.InjectController(this);
             SetUI();
@@ -165,6 +195,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public void PlayTestLevel()
         {
+            PlayerPrefs.SetInt(typeof(DynamicLevelLoaderOption).Name, (int)DynamicLevelLoaderOption.LoadTempData);
             _ioManager.SaveTempLevelData(_editorFile);
             SceneManager.LoadScene(_playSceneName);
         }
