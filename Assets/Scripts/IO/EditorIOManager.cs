@@ -12,7 +12,11 @@ namespace AgistForms.Assets.Scripts.IO
         [SerializeField]
         private string _levelFileExt;
 
+        [SerializeField]
+        private string _tempLevelFilename;
+
         private string _levelsSaveLocation;
+        private string _tempFileExactLocation;
 
         public void Init()
         {
@@ -43,6 +47,17 @@ namespace AgistForms.Assets.Scripts.IO
                 result[i] = Path.GetFileNameWithoutExtension(files[i]);
             }
             return result;
+        }
+
+        public void SaveTempLevelData(EditorFile file)
+        {
+            var fileName = _levelsSaveLocation + Path.DirectorySeparatorChar + _tempLevelFilename + _levelFileExt;
+            File.WriteAllText(fileName, file.Serialize());
+        }
+
+        public string GetTempLevelData()
+        {
+            return File.ReadAllText(_levelsSaveLocation + Path.DirectorySeparatorChar + _tempLevelFilename + _levelFileExt);
         }
 
         public string GetLevelData(string fileName)

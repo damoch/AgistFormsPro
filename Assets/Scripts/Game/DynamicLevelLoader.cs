@@ -8,12 +8,11 @@ using UnityEngine;
 
 namespace AgistForms.Assets.Scripts.Game
 {
-    [RequireComponent(typeof(LevelData), typeof(LevelController), typeof(EditorIOManager))]
+    [RequireComponent(typeof(LevelData), typeof(LevelController))]
     public class DynamicLevelLoader : MonoBehaviour
     {
         private LevelData _levelData;
         private LevelController _levelController;
-        private EditorIOManager _ioManager;
 
         [SerializeField]
         private string _testFileName;
@@ -24,11 +23,13 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private GameObject _targetShapePrefab;
 
+        [SerializeField]
+        private EditorIOManager _ioManager;
+
         private void Start()
         {
             _levelData = GetComponent<LevelData>();
             _levelController = GetComponent<LevelController>();
-            _ioManager = GetComponent<EditorIOManager>();
 
             _ioManager.Init();
             LoadLevel(_ioManager.GetLevelData(_testFileName));

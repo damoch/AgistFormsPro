@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 104159485}
   - component: {fileID: 104159484}
-  - component: {fileID: 104159486}
   m_Layer: 0
   m_Name: EditorController
   m_TagString: Untagged
@@ -151,6 +150,8 @@ MonoBehaviour:
   _filenameField: {fileID: 1350970201}
   _editorPanel: {fileID: 1427530776}
   _newLevelPanel: {fileID: 468397982}
+  _ioManager: {fileID: 1136022582}
+  _playSceneName: DynamicLevel
 --- !u!4 &104159485
 Transform:
   m_ObjectHideFlags: 0
@@ -164,19 +165,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &104159486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 104159483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da5733e597ad19a48ac01ea778074913, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelsFolderName: levels
-  _levelFileExt: .aflvl
 --- !u!1 &105612224
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,6 +2329,59 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 953255503}
+--- !u!1001 &1089643941
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.59582734
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.7588682
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.373275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4572442804660944, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114863916541576908, guid: 86672d8f48ad0b2459cf7458108ecbca,
+        type: 2}
+      propertyPath: _tempLevelFilename
+      value: TEMP
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 86672d8f48ad0b2459cf7458108ecbca, type: 2}
+  m_IsPrefabParent: 0
+--- !u!114 &1136022582 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114863916541576908, guid: 86672d8f48ad0b2459cf7458108ecbca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1089643941}
+  m_Script: {fileID: 11500000, guid: da5733e597ad19a48ac01ea778074913, type: 3}
 --- !u!1001 &1136718963
 Prefab:
   m_ObjectHideFlags: 0

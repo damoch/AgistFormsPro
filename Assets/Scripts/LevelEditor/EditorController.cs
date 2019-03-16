@@ -4,10 +4,10 @@ using AgistForms.Assets.Scripts.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace AgistForms.Assets.Scripts.LevelEditor
 {
-    [RequireComponent(typeof(EditorIOManager))]
     public class EditorController : MonoBehaviour
     {
         [SerializeField]
@@ -34,9 +34,14 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         [SerializeField]
         private GameObject _newLevelPanel;
 
+        [SerializeField]
+        private EditorIOManager _ioManager;
+
+        [SerializeField]
+        private string _playSceneName;
+
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
-        private EditorIOManager _ioManager;
 
         public BaseEditorShape CurrentShape
         {
@@ -57,7 +62,6 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void Start()
         {
-            _ioManager = GetComponent<EditorIOManager>();
             _ioManager.Init();
             SetWelcomeScreenUI();
         }
@@ -157,6 +161,12 @@ namespace AgistForms.Assets.Scripts.LevelEditor
                 return;
             }
             ((EditorShape)_currentShape).StartDirection = (Direction)change.value;
+        }
+
+        public void PlayTestLevel()
+        {
+            _ioManager.SaveTempLevelData(_editorFile);
+            SceneManager.LoadScene(_playSceneName);
         }
     }
 }
