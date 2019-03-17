@@ -23,11 +23,6 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            Debug.Log(collision);
-        }
-
         public ObjectSaveState GetSaveState()
         {
             return new ObjectSaveState

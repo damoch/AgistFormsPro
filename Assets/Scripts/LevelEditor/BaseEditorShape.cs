@@ -14,10 +14,10 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private ShapeSprite[] _spites;
 
         [SerializeField]
-        private Color _color;
+        protected Color _color;
 
         [SerializeField]
-        private Color _errorColor;
+        protected Color _errorColor;
 
         [SerializeField]
         protected Camera _mainCamera;
@@ -27,6 +27,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         protected Dictionary<ShapeType, Sprite> _spritesCache;
         protected SpriteRenderer _spriteRenderer;
         protected EditorController _controller;
+        private int _collisionCount;
 
 
         public ShapeType ShapeType
@@ -59,6 +60,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public virtual void Start()
         {
+            _collisionCount = 0;
             _mainCamera = FindObjectOfType<Camera>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -88,6 +90,22 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         public void InjectController(EditorController ec)
         {
             _controller = ec;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            _collisionCount++;
+            _spriteRenderer.color = _errorColor;
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            _collisionCount--;
+            if(_collisionCount > 0)
+            {
+                return;
+            }
+            _spriteRenderer.color = _color;
         }
     }
 }
