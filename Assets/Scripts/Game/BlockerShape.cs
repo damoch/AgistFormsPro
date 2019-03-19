@@ -36,6 +36,10 @@ namespace AgistForms.Assets.Scripts.Game
             }
         }
 
-
+        public void SetSavedState(ObjectSaveState state)
+        {
+            transform.position = state.StartingPosition;
+            _shapeType = state.StartingShapeType;
+        }
     }
 }

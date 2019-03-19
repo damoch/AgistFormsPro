@@ -8,6 +8,7 @@ namespace AgistForms.Assets.Scripts.IO
 {
     public delegate EditorShape CreateEditorShapeDelegate(int type);
     public delegate EditorTargetShape CreateEditorTargetShapeDelegate(int type);
+    public delegate EditorBlockerShape CreateEditorBlockerShapeDelegate(int type);
     public class EditorFile
     {
         public string LevelName { get; set; }
@@ -15,12 +16,14 @@ namespace AgistForms.Assets.Scripts.IO
         public List<EditorShape> FreeShapes { get; set; }
         public PlayerEditorShape PlayerEditorShape { get; set; }
         public List<EditorTargetShape> TargetShapes { get; set; }
+        public List<EditorBlockerShape> BlockerShapes { get; set; }
 
         public EditorFile(string fileName, PlayerEditorShape _shape)
         {
             LevelName = fileName;
             FreeShapes = new List<EditorShape>();
             TargetShapes = new List<EditorTargetShape>();
+            BlockerShapes = new List<EditorBlockerShape>();
             PlayerEditorShape = _shape;
         }
 
@@ -33,6 +36,7 @@ namespace AgistForms.Assets.Scripts.IO
 
             var shapesSerialized = new List<ObjectSaveState>();
             var targetsSerialized = new List<ObjectSaveState>();
+            var blockerSerialized = new List<ObjectSaveState>();
 
             foreach(var shape in FreeShapes)
             {
@@ -44,18 +48,27 @@ namespace AgistForms.Assets.Scripts.IO
                 targetsSerialized.Add(target.GetSaveState());
             }
 
+            foreach (var target in BlockerShapes)
+            {
+                blockerSerialized.Add(target.GetSaveState());
+            }
+
             result.Add(SaveFileFields.FreeShapesList, 
                        JsonConvert.SerializeObject(shapesSerialized));
 
             result.Add(SaveFileFields.TargetShapes, 
                        JsonConvert.SerializeObject(targetsSerialized));
 
+            result.Add(SaveFileFields.BlockerShapes,
+                       JsonConvert.SerializeObject(blockerSerialized));
+
             result.Add(SaveFileFields.PlayerShape, JsonConvert.SerializeObject(PlayerEditorShape.GetSaveState()));
 
             return JsonConvert.SerializeObject(result);
         }
 
-        public static EditorFile FromJson(string json, PlayerEditorShape playeShape, CreateEditorShapeDelegate newShapeAction, CreateEditorTargetShapeDelegate newTargetAction)
+        public static EditorFile FromJson(string json, PlayerEditorShape playeShape, CreateEditorShapeDelegate newShapeAction, CreateEditorTargetShapeDelegate newTargetAction, 
+            CreateEditorBlockerShapeDelegate newBlockerAction)
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<SaveFileFields, string>>(json);
 
@@ -76,6 +89,13 @@ namespace AgistForms.Assets.Scripts.IO
                 var newShape = newTargetAction((int)targetSerialized.StartingShapeType);
                 newShape.SetSavedState(targetSerialized);
                 result.TargetShapes.Add(newShape);
+            }
+            var blockerSerializedList = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.BlockerShapes]);
+            foreach (var blockerSerialized in blockerSerializedList)
+            {
+                var newShape = newBlockerAction((int)blockerSerialized.StartingShapeType);
+                newShape.SetSavedState(blockerSerialized);
+                result.BlockerShapes.Add(newShape);
             }
 
             return result;

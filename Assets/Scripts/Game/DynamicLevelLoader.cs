@@ -26,6 +26,9 @@ namespace AgistForms.Assets.Scripts.Game
         private GameObject _targetShapePrefab;
 
         [SerializeField]
+        private GameObject _blockerShapePrefab;
+
+        [SerializeField]
         private EditorIOManager _ioManager;
 
         [SerializeField]
@@ -57,6 +60,7 @@ namespace AgistForms.Assets.Scripts.Game
 
             var freeShapes = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.FreeShapesList]);
             var targetShapes = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.TargetShapes]);
+            var blockerShapes = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.BlockerShapes]);
 
             foreach (var shape in freeShapes)
             {
@@ -70,6 +74,13 @@ namespace AgistForms.Assets.Scripts.Game
                 var newShape = Instantiate(_targetShapePrefab).GetComponent<TargetShape>();
                 newShape.SetSavedState(shape);
                 _levelData.TargetShapes.Add(newShape);
+            }
+
+            foreach (var shape in blockerShapes)
+            {
+                var newShape = Instantiate(_blockerShapePrefab).GetComponent<BlockerShape>();
+                newShape.SetSavedState(shape);
+                _levelData.BlockerShapes.Add(newShape);
             }
 
             _levelController.enabled = true;

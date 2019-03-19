@@ -241,6 +241,8 @@ MonoBehaviour:
     type: 2}
   _targetShapePrefab: {fileID: 1839134039273840, guid: 357a13bb714738b479227eb6cf46add2,
     type: 2}
+  _blockerShapePrefab: {fileID: 1151505351089394, guid: 998ecf8ddd4783b40a5321b3b39c0043,
+    type: 2}
   _ioManager: {fileID: 661379282}
   _levelEditorSceneName: LevelEditor
 --- !u!1001 &337237595

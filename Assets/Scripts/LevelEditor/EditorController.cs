@@ -20,6 +20,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private GameObject _targetShapePrototype;
 
         [SerializeField]
+        private GameObject _blockerShapePrototype;
+
+        [SerializeField]
         private Dropdown _directionDropdown;
 
         [SerializeField]
@@ -118,7 +121,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         public void LoadSelectedLevel()
         {
             var json = _ioManager.GetLevelData(_selectLevelDropdown.options[_selectLevelDropdown.value].text);
-            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker);
             _playerShape.InjectController(this);
             SetUI();
         }
@@ -126,7 +129,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private void LoadTempLevel()
         {
             var json = _ioManager.GetTempLevelData();
-            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker);
             _playerShape.InjectController(this);
             SetUI();
         }
@@ -139,6 +142,11 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         public void CreateNewTarget(int shapetype)
         {
             AddTarget(shapetype);
+        }
+
+        public void CreateNewBlocker(int shapeType)
+        {
+            AddBlocker(shapeType);
         }
 
         private EditorShape AddShape(int shapeType)
@@ -168,6 +176,21 @@ namespace AgistForms.Assets.Scripts.LevelEditor
                 _editorFile.TargetShapes.Add(curr);
             }
             return curr;
+        }
+
+        private EditorBlockerShape AddBlocker(int shapeType)
+        {
+            var gObj = Instantiate(_blockerShapePrototype);
+            var curr = gObj.GetComponent<EditorBlockerShape>();
+            CurrentShape = curr;
+            curr.InjectController(this);
+            ChangeCurrentShape(shapeType);
+            if (_editorFile != null)
+            {
+                _editorFile.BlockerShapes.Add(curr);
+            }
+            return curr;
+
         }
 
         public void ChangeCurrentShape(int shapeType)
