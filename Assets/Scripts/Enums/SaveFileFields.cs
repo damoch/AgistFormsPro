@@ -2,6 +2,6 @@
 {
     public enum SaveFileFields
     {
-        LevelName, FreeShapesList, PlayerShape, TargetShapes, BlockerShapes
+        LevelName, FreeShapesList, PlayerShape, TargetShapes, BlockerShapes, EditorVersion
     }
 }

@@ -28,7 +28,7 @@ namespace AgistForms.Assets.Scripts.Game
                 {Direction.Down, Vector2.down },
                 {Direction.Left, Vector2.left },
                 {Direction.Right, Vector2.right }
-};
+            };
             _spriteRenderer = GetComponent<SpriteRenderer>();
             PrepareSpriteCaches();
             _spriteRenderer.sprite = _spriteCache[_shapeType];

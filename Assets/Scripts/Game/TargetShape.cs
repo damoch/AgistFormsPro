@@ -50,6 +50,10 @@ namespace AgistForms.Assets.Scripts.Game
 
         private void SetSprite(bool isCorrect)
         {
+            if(_spriteRenderer == null)
+            {
+                return;
+            }
             _spriteRenderer.color = isCorrect ? _correctColor : _wrongColor;
         }
 

@@ -43,6 +43,21 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         [SerializeField]
         private string _playSceneName;
 
+        [SerializeField]
+        private string _mainMenuSceneName;
+
+        [SerializeField]
+        private int _editorVersion;
+
+        [SerializeField]
+        private Dropdown _difficultyDropdown;
+
+        [SerializeField]
+        private Text _versionText;
+
+        [SerializeField]
+        private Button _loadLevelButton;
+
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
         private LevelEditorStartupOption _levelEditorStartupOption;
@@ -95,33 +110,50 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         {
             _newLevelPanel.SetActive(false);
             _editorPanel.SetActive(true);
-            var enumOptions = Enum.GetNames(typeof(Direction)).ToList();
+            var directionOptions = Enum.GetNames(typeof(Direction)).ToList();
+            var difficultyOptions = Enum.GetNames(typeof(GameDifficultyLevel)).ToList();
             _directionDropdown.ClearOptions();
-            _directionDropdown.AddOptions(enumOptions);
+            _directionDropdown.AddOptions(directionOptions);
             _directionDropdown.onValueChanged.AddListener(delegate
             {
-                OnDroptownValueChanged(_directionDropdown);
+                OnDirectionDropdownValueChanged(_directionDropdown);
             });
+
+            _difficultyDropdown.ClearOptions();
+            _difficultyDropdown.AddOptions(difficultyOptions);
+
         }
 
         private void SetWelcomeScreenUI()
         {
+            _versionText.text = string.Format(_versionText.text, _editorVersion);
             var lvls = _ioManager.GetSavedLevels();
             _selectLevelDropdown.ClearOptions();
-            _selectLevelDropdown.AddOptions(lvls.ToList());
+            if (lvls.Length > 0)
+            {
+                _selectLevelDropdown.AddOptions(lvls.ToList());
+            }
+            else
+            {
+                _loadLevelButton.enabled = false;
+            }
         }
 
         public void CreateNewLevel()
         {
+            if (string.IsNullOrEmpty(_filenameField.text))
+            {
+                return;
+            }
             _playerShape.InjectController(this);
-            _editorFile = new EditorFile(_filenameField.text, _playerShape);
+            _editorFile = new EditorFile(_filenameField.text, _playerShape, _editorVersion);
             SetUI();
         }
 
         public void LoadSelectedLevel()
         {
             var json = _ioManager.GetLevelData(_selectLevelDropdown.options[_selectLevelDropdown.value].text);
-            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker, _editorVersion);
             _playerShape.InjectController(this);
             SetUI();
         }
@@ -129,7 +161,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         private void LoadTempLevel()
         {
             var json = _ioManager.GetTempLevelData();
-            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker);
+            _editorFile = EditorFile.FromJson(json, _playerShape, AddShape, AddTarget, AddBlocker, _editorVersion);
             _playerShape.InjectController(this);
             SetUI();
         }
@@ -207,7 +239,7 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             _ioManager.SaveLevelData(_editorFile);
         }
 
-        public void OnDroptownValueChanged(Dropdown change)
+        public void OnDirectionDropdownValueChanged(Dropdown change)
         {
             if (!_currentShape || !(_currentShape is EditorShape))
             {
@@ -218,9 +250,37 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         public void PlayTestLevel()
         {
+            PlayerPrefs.SetInt(typeof(GameDifficultyLevel).ToString(), _difficultyDropdown.value);
             PlayerPrefs.SetInt(typeof(DynamicLevelLoaderOption).Name, (int)DynamicLevelLoaderOption.LoadTempData);
             _ioManager.SaveTempLevelData(_editorFile);
             SceneManager.LoadScene(_playSceneName);
+        }
+
+        public void DeleteSelectedShape()
+        {
+            if(_currentShape == null || _currentShape == _playerShape)
+            {
+                return;
+            }
+            if(_currentShape is EditorShape)
+            {
+                _editorFile.FreeShapes.Remove(_currentShape as EditorShape);
+            }
+            else if (_currentShape is EditorTargetShape)
+            {
+                _editorFile.TargetShapes.Remove(_currentShape as EditorTargetShape);
+            }
+            else if(_currentShape is EditorBlockerShape)
+            {
+                _editorFile.BlockerShapes.Remove(_currentShape as EditorBlockerShape);
+            }
+            Destroy(_currentShape.gameObject);
+            _currentShape = null;
+        }
+
+        public void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene(_mainMenuSceneName);
         }
     }
 }

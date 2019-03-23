@@ -2,7 +2,7 @@
 {
     public enum GameDifficultyLevel
     {
-        Normal = 1,
-        Hard = 2,
+        Normal = 0,
+        Hard = 1,
     }
 }

@@ -17,21 +17,24 @@ namespace AgistForms.Assets.Scripts.IO
         public PlayerEditorShape PlayerEditorShape { get; set; }
         public List<EditorTargetShape> TargetShapes { get; set; }
         public List<EditorBlockerShape> BlockerShapes { get; set; }
+        public int EditorVersion { get; set; }
 
-        public EditorFile(string fileName, PlayerEditorShape _shape)
+        public EditorFile(string fileName, PlayerEditorShape _shape, int version)
         {
             LevelName = fileName;
             FreeShapes = new List<EditorShape>();
             TargetShapes = new List<EditorTargetShape>();
             BlockerShapes = new List<EditorBlockerShape>();
             PlayerEditorShape = _shape;
+            EditorVersion = version;
         }
 
         public string Serialize()
         {
             var result = new Dictionary<SaveFileFields, string>
             {
-                { SaveFileFields.LevelName, LevelName }
+                { SaveFileFields.LevelName, LevelName },
+                {SaveFileFields.EditorVersion, EditorVersion.ToString() }
             };
 
             var shapesSerialized = new List<ObjectSaveState>();
@@ -68,11 +71,16 @@ namespace AgistForms.Assets.Scripts.IO
         }
 
         public static EditorFile FromJson(string json, PlayerEditorShape playeShape, CreateEditorShapeDelegate newShapeAction, CreateEditorTargetShapeDelegate newTargetAction, 
-            CreateEditorBlockerShapeDelegate newBlockerAction)
+            CreateEditorBlockerShapeDelegate newBlockerAction, int currentVersion)
         {
             var dict = JsonConvert.DeserializeObject<Dictionary<SaveFileFields, string>>(json);
-
-            var result = new EditorFile(dict[SaveFileFields.LevelName], playeShape);
+            var fileVersion = int.Parse(dict[SaveFileFields.EditorVersion]);
+            //TODO: uncomment, when new version is released, and compatibility fix is needed
+            //if (fileVersion < currentVersion)
+            //{
+                
+            //}
+            var result = new EditorFile(dict[SaveFileFields.LevelName], playeShape, fileVersion);
             result.PlayerEditorShape.SetSavedState(JsonConvert.DeserializeObject<ObjectSaveState>(dict[SaveFileFields.PlayerShape]));
 
             var freeShapesList = JsonConvert.DeserializeObject<List<ObjectSaveState>>(dict[SaveFileFields.FreeShapesList]);

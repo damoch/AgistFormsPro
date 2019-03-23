@@ -78,7 +78,10 @@ namespace AgistForms.Assets.Scripts.LevelEditor
 
         private void OnMouseDown()
         {
-            _controller.CurrentShape = this;
+            if (_controller != null)
+            {
+                _controller.CurrentShape = this;
+            }
             IsDragging = true;
         }
 
