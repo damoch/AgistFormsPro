@@ -42,6 +42,7 @@ namespace AgistForms.Assets.Scripts.Game
         private ScoreData _scoreData;
         private SaveManager _saveManager;
         private float _defaultGameSpeed;
+        private DynamicLevelLoader _levelLoader;
 
         public GameDifficultyLevel DifficultyLevel
         {
@@ -57,6 +58,7 @@ namespace AgistForms.Assets.Scripts.Game
             _levelData = GetComponent<LevelData>();
             _scoreData = GetComponent<ScoreData>();
             _saveManager = GetComponent<SaveManager>();
+            _levelLoader = GetComponent<DynamicLevelLoader>();
 
             SetDifficultyLevel();
             _saveManager.Init();
@@ -125,6 +127,11 @@ namespace AgistForms.Assets.Scripts.Game
                 case GameState.LevelCompleted:
                     if (Input.GetKey(_confirmNextLevelKeyCode))
                     {
+                        if(_levelLoader != null)
+                        {
+                            _levelLoader.GoBackToEditor();
+                            return;
+                        }
                         GoToNextLevel();
                     }
                     break;
@@ -140,6 +147,11 @@ namespace AgistForms.Assets.Scripts.Game
                     }
                     if (Input.GetKeyDown(_pauseKeyCode))
                     {
+                        if (_levelLoader != null)
+                        {
+                            _levelLoader.GoBackToEditor();
+                            return;
+                        }
                         ExitLevel();
                     }
 
