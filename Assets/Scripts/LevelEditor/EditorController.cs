@@ -58,6 +58,9 @@ namespace AgistForms.Assets.Scripts.LevelEditor
         [SerializeField]
         private Button _loadLevelButton;
 
+        [SerializeField]
+        private Color _selectedObjectColor;
+
         private EditorFile _editorFile;
         private BaseEditorShape _currentShape;
         private LevelEditorStartupOption _levelEditorStartupOption;
@@ -70,12 +73,21 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             }
             set
             {
-
+                if(_currentShape != null)
+                {
+                    _currentShape.DeselectSprite();
+                }
                 _currentShape = value;
                 if(_currentShape is EditorShape)
                 {
+                    _directionDropdown.enabled = true;
                     _directionDropdown.value = (int)((EditorShape)_currentShape).StartDirection;
                 }
+                else
+                {
+                    _directionDropdown.enabled = false;
+                }
+                _currentShape.SetColorForSelected(_selectedObjectColor);
             }
         }
 

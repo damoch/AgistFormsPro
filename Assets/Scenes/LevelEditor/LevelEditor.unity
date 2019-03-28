@@ -307,6 +307,7 @@ MonoBehaviour:
   _difficultyDropdown: {fileID: 122926705}
   _versionText: {fileID: 997186827}
   _loadLevelButton: {fileID: 920220415}
+  _selectedObjectColor: {r: 0.2794118, g: 0.61237293, b: 1, a: 1}
 --- !u!4 &104159485
 Transform:
   m_ObjectHideFlags: 0

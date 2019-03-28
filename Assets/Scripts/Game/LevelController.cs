@@ -147,11 +147,6 @@ namespace AgistForms.Assets.Scripts.Game
                     }
                     if (Input.GetKeyDown(_pauseKeyCode))
                     {
-                        if (_levelLoader != null)
-                        {
-                            _levelLoader.GoBackToEditor();
-                            return;
-                        }
                         ExitLevel();
                     }
 
@@ -163,6 +158,11 @@ namespace AgistForms.Assets.Scripts.Game
         private void ExitLevel()
         {
             Time.timeScale = _defaultGameSpeed;
+            if (_levelLoader != null)
+            {
+                _levelLoader.GoBackToEditor();
+                return;
+            }
             SceneManager.LoadScene(_mainMenuScene);
         }
 
@@ -183,7 +183,12 @@ namespace AgistForms.Assets.Scripts.Game
         }
 
         private void GoToNextLevel()
-        {           
+        {
+            if (_levelLoader != null)
+            {
+                _levelLoader.GoBackToEditor();
+                return;
+            }
             if (!string.IsNullOrEmpty(_levelData.NextLevelName))
             {
                 SceneManager.LoadScene(_levelData.NextLevelName);

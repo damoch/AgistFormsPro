@@ -110,5 +110,21 @@ namespace AgistForms.Assets.Scripts.LevelEditor
             }
             _spriteRenderer.color = _color;
         }
+
+        public void SetColorForSelected(Color color)
+        {
+            if(_spriteRenderer!= null)
+            {
+                _spriteRenderer.color = color;
+            }
+        }
+
+        public void DeselectSprite()
+        {
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.color = _collisionCount < 1 ? _color : _errorColor;
+            }
+        }
     }
 }
