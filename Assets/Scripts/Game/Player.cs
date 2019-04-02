@@ -1,5 +1,6 @@
 ﻿using AgistForms.Assets.Scripts.Enums;
 using AgistForms.Assets.Scripts.Structs;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace AgistForms.Assets.Scripts.Game
 
         [SerializeField]
         private float _speed;
+
+        [SerializeField]
+        private List<TargetShape> _collidedTargets;
 
         private Dictionary<ShapeType, Sprite> _spriteCache;
         private Dictionary<Direction, Vector2> _commandToDirection;
@@ -32,6 +36,7 @@ namespace AgistForms.Assets.Scripts.Game
             _spriteRenderer = GetComponent<SpriteRenderer>();
             PrepareSpriteCaches();
             _spriteRenderer.sprite = _spriteCache[_shapeType];
+            _collidedTargets = new List<TargetShape>();
         }
 
         private void PrepareSpriteCaches()
@@ -54,11 +59,25 @@ namespace AgistForms.Assets.Scripts.Game
             set
             {
                 _shapeType = value;
+                CheckCollidedShapes();
                 if(_spriteRenderer == null)
                 {
                     return;
                 }
                 _spriteRenderer.sprite = _spriteCache[value];
+            }
+        }
+
+        private void CheckCollidedShapes()
+        {
+            if(_collidedTargets.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var target in _collidedTargets)
+            {
+                target.TestPlayerShape(this);
             }
         }
 
@@ -72,6 +91,26 @@ namespace AgistForms.Assets.Scripts.Game
         {
             transform.position = state.StartingPosition;
             ShapeType = state.StartingShapeType;
+
+            _collidedTargets = new List<TargetShape>();
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            var target = collision.gameObject.GetComponent<TargetShape>();
+            if (target)
+            {
+                _collidedTargets.Add(target);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            var target = collision.gameObject.GetComponent<TargetShape>();
+            if (target)
+            {
+                _collidedTargets.Remove(target);
+            }
         }
     }
 }

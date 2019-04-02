@@ -68,14 +68,19 @@ namespace AgistForms.Assets.Scripts.Game
 
             if (player)
             {
-                var succesfull = player.ShapeType == _targetType;
-                SetSprite(succesfull);
-                _succesfullCollison = succesfull;
-                if (succesfull)
-                {
-                    LevelController.CheckTargetSprites();
-                }
-   
+                TestPlayerShape(player);
+
+            }
+        }
+
+        public void TestPlayerShape(Player player)
+        {
+            var succesfull = player.ShapeType == _targetType;
+            SetSprite(succesfull);
+            _succesfullCollison = succesfull;
+            if (succesfull)
+            {
+                LevelController.CheckTargetSprites();
             }
         }
 
