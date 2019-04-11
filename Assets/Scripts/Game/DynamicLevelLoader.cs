@@ -17,9 +17,6 @@ namespace AgistForms.Assets.Scripts.Game
         private DynamicLevelLoaderOption _dynamicLevelLoaderOption;
 
         [SerializeField]
-        private string _testFileName;
-
-        [SerializeField]
         private GameObject _freeShapePrefab;
 
         [SerializeField]
@@ -34,6 +31,9 @@ namespace AgistForms.Assets.Scripts.Game
         [SerializeField]
         private string _levelEditorSceneName;
 
+        [SerializeField]
+        private string _mainMenuSceneName;
+
         private void Start()
         {
             _levelData = GetComponent<LevelData>();
@@ -46,9 +46,11 @@ namespace AgistForms.Assets.Scripts.Game
             {
                 LoadLevel(_ioManager.GetTempLevelData());
             }
-            else
+            else if(_dynamicLevelLoaderOption == DynamicLevelLoaderOption.LoadLevelName)
             {
-                LoadLevel(_ioManager.GetLevelData(_testFileName));
+                var levelName = PlayerPrefs.GetString(DynamicLevelLoaderOption.LoadLevelName.ToString());
+                LoadLevel(_ioManager.GetLevelData(levelName));
+                PlayerPrefs.DeleteKey(DynamicLevelLoaderOption.LoadLevelName.ToString());
             }
         }
 
@@ -86,10 +88,17 @@ namespace AgistForms.Assets.Scripts.Game
             _levelController.enabled = true;
         }
 
-        public void GoBackToEditor()
+        public void ExitLevel()
         {
-            PlayerPrefs.SetInt(typeof(LevelEditorStartupOption).Name, (int)LevelEditorStartupOption.LoadTemp);
-            SceneManager.LoadScene(_levelEditorSceneName);
+            if(_dynamicLevelLoaderOption == DynamicLevelLoaderOption.LoadTempData)
+            {
+                PlayerPrefs.SetInt(typeof(LevelEditorStartupOption).Name, (int)LevelEditorStartupOption.LoadTemp);
+                SceneManager.LoadScene(_levelEditorSceneName);
+            }
+            else
+            {
+                SceneManager.LoadScene(_mainMenuSceneName);
+            }
         }
     }
 }

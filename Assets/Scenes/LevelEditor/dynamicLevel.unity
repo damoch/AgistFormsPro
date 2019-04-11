@@ -220,7 +220,7 @@ Prefab:
     - target: {fileID: 114577155033567284, guid: fb36798b17714b94cba7e0b692ffd80a,
         type: 2}
       propertyPath: _winLevelMessage
-      value: Level completed. Press {0} to return to editor.
+      value: Level completed. Press {0} to return to exit.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb36798b17714b94cba7e0b692ffd80a, type: 2}
@@ -241,7 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4156622bfe55f704eb24ce5fa347d8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testFileName: test
   _freeShapePrefab: {fileID: 1084814775127798, guid: 17a54d3a1d58fce46a310ca155abe155,
     type: 2}
   _targetShapePrefab: {fileID: 1839134039273840, guid: 357a13bb714738b479227eb6cf46add2,
@@ -250,6 +249,7 @@ MonoBehaviour:
     type: 2}
   _ioManager: {fileID: 661379282}
   _levelEditorSceneName: LevelEditor
+  _mainMenuSceneName: mainMenu
 --- !u!1001 &337237595
 Prefab:
   m_ObjectHideFlags: 0
@@ -688,7 +688,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 336203913}
-        m_MethodName: GoBackToEditor
+        m_MethodName: ExitLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1038,7 +1038,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Return to editor
+  m_Text: Exit level
 --- !u!222 &1559568514
 CanvasRenderer:
   m_ObjectHideFlags: 0

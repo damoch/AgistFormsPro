@@ -129,7 +129,7 @@ namespace AgistForms.Assets.Scripts.Game
                     {
                         if(_levelLoader != null)
                         {
-                            _levelLoader.GoBackToEditor();
+                            _levelLoader.ExitLevel();
                             return;
                         }
                         GoToNextLevel();
@@ -160,7 +160,7 @@ namespace AgistForms.Assets.Scripts.Game
             Time.timeScale = _defaultGameSpeed;
             if (_levelLoader != null)
             {
-                _levelLoader.GoBackToEditor();
+                _levelLoader.ExitLevel();
                 return;
             }
             SceneManager.LoadScene(_mainMenuScene);
@@ -186,7 +186,7 @@ namespace AgistForms.Assets.Scripts.Game
         {
             if (_levelLoader != null)
             {
-                _levelLoader.GoBackToEditor();
+                _levelLoader.ExitLevel();
                 return;
             }
             if (!string.IsNullOrEmpty(_levelData.NextLevelName))

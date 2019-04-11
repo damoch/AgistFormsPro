@@ -35,9 +35,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Others/trailer.unity
     guid: 0bccbede2b766bc4388ffaa276b86aca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelEditor/LevelEditor.unity
     guid: 441ae749da3a5f147a728b0817fc2130
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LevelEditor/DynamicLevel.unity
     guid: a242297643447d54b8ee93ace9f2a248
